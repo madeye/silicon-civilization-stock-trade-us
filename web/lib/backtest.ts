@@ -66,20 +66,6 @@ function indexByDate(klines: Kline[]) {
   return m;
 }
 
-// A-share daily price-limit (涨跌停) thresholds by board, as a fraction of the
-// prior close. Main board ±10% (ST ±5%), 科创板/创业板 ±20%, 北交所 ±30%.
-function priceLimitFraction(symbol: string, name: string): number {
-  const code = symbol.replace(/^(sh|sz|bj)/i, "").replace(/\.(sh|sz|bj)$/i, "");
-  if (/^(688|300|301)/.test(code)) return 0.2; // 科创板 / 创业板
-  if (/^(4|8|92)/.test(code)) return 0.3; // 北交所
-  return /ST/i.test(name) ? 0.05 : 0.1; // 主板（ST 减半）
-}
-
-// Klines are 前复权 (qfq) adjusted, which preserves daily returns, so a 涨/跌停
-// lock still shows up as a move at the board limit. The 0.3pp slack absorbs the
-// exchange's 0.01-yuan rounding of the limit price.
-const LIMIT_SLACK = 0.003;
-
 export type Progress =
   | { phase: "signals"; done: number; total: number }
   | { phase: "simulating"; done: number; total: number };
@@ -114,30 +100,6 @@ export async function runBacktest(
 
   const byDate = series.map((s) => indexByDate(s.klines));
   const symbols = series.map((s) => s.entry.symbol);
-  const symbolIndex = new Map(symbols.map((s, j) => [s, j] as const));
-
-  // Prior-close lookup built from the FULL series so the first in-window bar
-  // still resolves a previous close for limit detection.
-  const prevCloseByDate = series.map((s) => {
-    const sorted = [...s.klines].sort((a, b) => (a.date < b.date ? -1 : 1));
-    const m = new Map<string, number>();
-    for (let k = 1; k < sorted.length; k++) m.set(sorted[k].date, sorted[k - 1].close);
-    return m;
-  });
-  const limitFrac = series.map((s) => priceLimitFraction(s.entry.symbol, s.entry.name));
-  const dayReturn = (j: number, date: string, close: number): number | null => {
-    const prev = prevCloseByDate[j].get(date);
-    if (prev === undefined || prev <= 0) return null;
-    return close / prev - 1;
-  };
-  const atLimitUp = (j: number, date: string, close: number): boolean => {
-    const r = dayReturn(j, date, close);
-    return r !== null && r >= limitFrac[j] - LIMIT_SLACK;
-  };
-  const atLimitDown = (j: number, date: string, close: number): boolean => {
-    const r = dayReturn(j, date, close);
-    return r !== null && r <= -(limitFrac[j] - LIMIT_SLACK);
-  };
 
   const t0 = Date.now();
   // Pre-fetch ALL rebalance signals in parallel. Signals at date D depend
@@ -178,8 +140,6 @@ export async function runBacktest(
 
   let cash = cfg.startCash;
   const shares: Record<string, number> = Object.fromEntries(symbols.map((s) => [s, 0]));
-  // Sells blocked by a 跌停 lock; retried each bar until the name can trade.
-  const pendingSell: Record<string, boolean> = {};
   const equityCurve: PortfolioBar[] = [];
   const trades: BacktestResult["trades"] = [];
   const fee = cfg.feeBps / 10_000;
@@ -197,54 +157,25 @@ export async function runBacktest(
       prices[symbols[j]] = k.close;
     }
 
-    // Retry sells deferred by a prior 跌停 as soon as the name can trade again.
-    for (const sym of symbols) {
-      if (!pendingSell[sym]) continue;
-      const held = shares[sym] ?? 0;
-      if (held <= 0) {
-        pendingSell[sym] = false;
-        continue;
-      }
-      const j = symbolIndex.get(sym)!;
-      const px = prices[sym];
-      if (atLimitDown(j, date, px)) continue; // still 跌停 — keep waiting
-      cash += held * px * (1 - fee);
-      trades.push({ date, symbol: sym, side: "sell", shares: held, price: px });
-      shares[sym] = 0;
-      pendingSell[sym] = false;
-    }
-
     // Rebalance day?
     if (i % cfg.rebalanceEveryNDays === 0) {
       const signals = signalsByDate[date] ?? [];
 
-      // Sells first to free cash
+      // Sells first to free cash. US equities have no daily price limit, so a
+      // signaled exit always fills at the close.
       for (const sig of signals) {
         if (sig.action !== "sell") continue;
         const held = shares[sig.symbol] ?? 0;
         if (held <= 0) continue;
-        const j = symbolIndex.get(sig.symbol);
         const px = prices[sig.symbol];
-        // 跌停 — no buyers, can't sell today; defer and retry on later bars.
-        if (j !== undefined && atLimitDown(j, date, px)) {
-          pendingSell[sig.symbol] = true;
-          continue;
-        }
         cash += held * px * (1 - fee);
         trades.push({ date, symbol: sig.symbol, side: "sell", shares: held, price: px });
         shares[sig.symbol] = 0;
-        pendingSell[sig.symbol] = false;
       }
 
-      // Rank buys by confidence*size, cap at maxPositions. 涨停 names are
-      // unfillable (no sellers), so drop them here and let a tradable name
-      // take the slot rather than reserving cash for an order that can't fill.
+      // Rank buys by confidence*size, cap at maxPositions.
       const buys = signals
-        .filter((s) => {
-          if (s.action !== "buy" || s.size <= 0) return false;
-          const j = symbolIndex.get(s.symbol);
-          return !(j !== undefined && atLimitUp(j, date, prices[s.symbol]));
-        })
+        .filter((s) => s.action === "buy" && s.size > 0)
         .sort((a, b) => b.confidence * b.size - a.confidence * a.size)
         .slice(0, cfg.maxPositions);
 
@@ -255,7 +186,7 @@ export async function runBacktest(
         const alloc = budget * weight;
         const px = prices[sig.symbol];
         if (!px || alloc <= 0) continue;
-        const sh = Math.floor(alloc / (px * (1 + fee)) / 100) * 100; // round to 100-lot
+        const sh = Math.floor(alloc / (px * (1 + fee))); // whole shares (US)
         if (sh <= 0) continue;
         const cost = sh * px * (1 + fee);
         if (cost > cash) continue;

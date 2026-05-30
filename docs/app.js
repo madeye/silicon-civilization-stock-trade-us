@@ -3,10 +3,10 @@
 
 const $ = (sel) => document.querySelector(sel);
 const fmt = {
-  num: (v, digits = 2) => (v == null || Number.isNaN(v) ? "无" : v.toFixed(digits)),
-  pct: (v, digits = 1) => (v == null || Number.isNaN(v) ? "无" : `${v > 0 ? "+" : ""}${v.toFixed(digits)}%`),
-  int: (v) => (v == null ? "无" : v.toLocaleString()),
-  money: (v) => (v == null ? "无" : `¥${Math.round(v).toLocaleString()}`),
+  num: (v, digits = 2) => (v == null || Number.isNaN(v) ? "—" : v.toFixed(digits)),
+  pct: (v, digits = 1) => (v == null || Number.isNaN(v) ? "—" : `${v > 0 ? "+" : ""}${v.toFixed(digits)}%`),
+  int: (v) => (v == null ? "—" : v.toLocaleString()),
+  money: (v) => (v == null ? "—" : `$${Math.round(v).toLocaleString()}`),
 };
 
 async function loadJson(name) {
@@ -45,10 +45,10 @@ function renderKpis({ universe, analyst, signals, backtest, meta }) {
   const stampStr = stamp.toISOString().slice(0, 16).replace("T", " ") + " UTC";
 
   const cards = [
-    ["股票池", `${universe.entries.length}`, `${themes.size} 个子主题`],
-    ["全球供应链", `${globalCount}`, `${globalPct}% 覆盖`],
-    ["上行空间 > 0", `${upsideCount}`, `按分析师目标价`],
-    ["DeepSeek 信号", `${buys} 买 / ${sells} 卖`, `共 ${signals?.signals?.length ?? 0} 条`],
+    ["Watchlist", `${universe.entries.length}`, `${themes.size} sub-themes`],
+    ["Global supply chain", `${globalCount}`, `${globalPct}% coverage`],
+    ["Upside > 0", `${upsideCount}`, `by analyst target`],
+    ["DeepSeek signals", `${buys} buy / ${sells} sell`, `${signals?.signals?.length ?? 0} total`],
   ];
   for (const [label, value, sub] of cards) {
     grid.appendChild(el("div", { class: "metric" }, [
@@ -57,7 +57,7 @@ function renderKpis({ universe, analyst, signals, backtest, meta }) {
       el("span", {}, sub),
     ]));
   }
-  $("#meta-line").textContent = `数据生成时间：${stampStr} · 股票池更新：${universe.updated_at} (${universe.updated_by})`;
+  $("#meta-line").textContent = `Generated: ${stampStr} · Watchlist updated: ${universe.updated_at} (${universe.updated_by})`;
 }
 
 // ---------- Universe table ----------
@@ -102,30 +102,30 @@ function renderUniverse({ universe, analyst }) {
             el("div", { class: "stock-name" }, e.name),
             e.note ? el("div", { class: "stock-note" }, e.note) : null,
           ]),
-          el("td", {}, el("span", { class: e.global_supply ? "pill good" : "pill" }, e.global_supply ? "是" : "否")),
+          el("td", {}, el("span", { class: e.global_supply ? "pill good" : "pill" }, e.global_supply ? "Yes" : "No")),
           el("td", { class: "num" }, fmt.num(a?.current_price)),
           el("td", { class: "num" }, fmt.num(a?.implied_target)),
-          el("td", { class: `num ${uClass}` }, u == null ? "无" : fmt.pct(u, 0)),
-          el("td", { class: "num muted" }, a?.buy_count != null && a?.total_count ? `${a.buy_count}/${a.total_count}` : "无"),
+          el("td", { class: `num ${uClass}` }, u == null ? "—" : fmt.pct(u, 0)),
+          el("td", { class: "num muted" }, a?.buy_count != null && a?.total_count ? `${a.buy_count}/${a.total_count}` : "—"),
         ]));
       }
       const panel = el("div", { class: "theme-panel" }, [
         el("div", { class: "theme-title" }, [
           el("strong", {}, theme),
-          el("span", {}, `${items.length} 只`),
+          el("span", {}, `${items.length}`),
         ]),
         el("div", { class: "table-wrap" }, el("table", {}, [
           el("thead", {}, el("tr", {}, [
-            el("th", {}, "代码"), el("th", {}, "名称"), el("th", {}, "全球链"),
-            el("th", { class: "num" }, "现价"), el("th", { class: "num" }, "目标价"),
-            el("th", { class: "num" }, "上行"), el("th", { class: "num" }, "买入评级"),
+            el("th", {}, "Ticker"), el("th", {}, "Name"), el("th", {}, "Global"),
+            el("th", { class: "num" }, "Price"), el("th", { class: "num" }, "Target"),
+            el("th", { class: "num" }, "Upside"), el("th", { class: "num" }, "Buy rating"),
           ])),
           tbody,
         ])),
       ]);
       grid.appendChild(panel);
     }
-    $("#status").textContent = `显示 ${shown}/${universe.entries.length}`;
+    $("#status").textContent = `Showing ${shown}/${universe.entries.length}`;
   }
   render();
 }
@@ -135,7 +135,7 @@ function renderSignals({ universe, signals }) {
   const tbody = $("#signals-table tbody");
   tbody.innerHTML = "";
   if (!signals) {
-    tbody.appendChild(el("tr", {}, el("td", { colspan: 8, class: "muted" }, "无信号快照")));
+    tbody.appendChild(el("tr", {}, el("td", { colspan: 8, class: "muted" }, "No signal snapshot")));
     return;
   }
   const sigBySym = new Map((signals.signals ?? []).map((s) => [s.symbol, s]));
@@ -164,7 +164,7 @@ function renderSignals({ universe, signals }) {
       el("td", { class: "muted signal-reason" }, s?.rationale ?? "—"),
     ]));
   }
-  $("#signals-summary").textContent = `${buys} 买入 · ${sells} 卖出`;
+  $("#signals-summary").textContent = `${buys} buy · ${sells} sell`;
 }
 
 // ---------- Backtest ----------
@@ -172,16 +172,16 @@ function renderBacktest(bt) {
   if (!bt) return;
   const { config, stats, equityCurve, trades } = bt;
   $("#backtest-window").textContent =
-    `${config.startDate} → ${config.endDate} · 起始资金 ¥${config.startCash.toLocaleString()}` +
-    ` · 每 ${config.rebalanceEveryNDays} 日调仓 · 最多 ${config.maxPositions} 持仓 · 手续费 ${config.feeBps}bps`;
+    `${config.startDate} → ${config.endDate} · Start cash $${config.startCash.toLocaleString()}` +
+    ` · Rebalance every ${config.rebalanceEveryNDays} days · Max ${config.maxPositions} positions · Fee ${config.feeBps}bps`;
 
   const kpi = $("#backtest-kpi");
   kpi.innerHTML = "";
   const cards = [
-    ["总收益", fmt.pct(stats.totalReturnPct, 1), stats.totalReturnPct >= 0 ? "pos" : "neg", "全程"],
-    ["年化(CAGR)", fmt.pct(stats.cagrPct, 1), stats.cagrPct >= 0 ? "pos" : "neg", "复合年化"],
-    ["最大回撤", fmt.pct(stats.maxDrawdownPct, 1), "neg", "峰谷"],
-    ["夏普", stats.sharpe == null ? "无" : stats.sharpe.toFixed(2), "", `${stats.trades} 笔交易`],
+    ["Total return", fmt.pct(stats.totalReturnPct, 1), stats.totalReturnPct >= 0 ? "pos" : "neg", "full period"],
+    ["CAGR", fmt.pct(stats.cagrPct, 1), stats.cagrPct >= 0 ? "pos" : "neg", "compound annual"],
+    ["Max drawdown", fmt.pct(stats.maxDrawdownPct, 1), "neg", "peak-to-trough"],
+    ["Sharpe", stats.sharpe == null ? "—" : stats.sharpe.toFixed(2), "", `${stats.trades} trades`],
   ];
   for (const [label, value, cls, sub] of cards) {
     kpi.appendChild(el("div", { class: "metric" }, [
@@ -206,7 +206,7 @@ function renderBacktest(bt) {
       el("td", { class: "num" }, fmt.num(t.price)),
     ]));
   }
-  $("#trades-count").textContent = `共 ${trades.length} 笔（最新在上）`;
+  $("#trades-count").textContent = `${trades.length} total (newest first)`;
 }
 
 function drawEquityChart(curve, baseline) {
@@ -248,7 +248,7 @@ function drawEquityChart(curve, baseline) {
       ctx.stroke();
       ctx.textAlign = "right";
       ctx.textBaseline = "middle";
-      ctx.fillText(`¥${Math.round(v / 1000)}k`, pad.l - 6, y);
+      ctx.fillText(`$${Math.round(v / 1000)}k`, pad.l - 6, y);
     }
 
     // baseline line
@@ -315,7 +315,7 @@ function drawEquityChart(curve, baseline) {
     renderBacktest(backtest);
   } catch (e) {
     document.body.innerHTML =
-      `<div class="container"><h1>加载失败</h1><p>${e.message}</p>` +
-      `<p>请先在 <code>web/</code> 下运行 <code>npx tsx scripts/snapshot.ts</code> 生成 <code>docs/data/</code>。</p></div>`;
+      `<div class="container"><h1>Load failed</h1><p>${e.message}</p>` +
+      `<p>Run <code>npx tsx scripts/snapshot.ts</code> under <code>web/</code> first to generate <code>docs/data/</code>.</p></div>`;
   }
 })();

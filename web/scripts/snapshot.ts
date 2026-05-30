@@ -31,7 +31,7 @@ function pct(v: number, digits = 1): string {
 }
 
 function money(v: number): string {
-  return `¥${Math.round(v).toLocaleString("en-US")}`;
+  return `$${Math.round(v).toLocaleString("en-US")}`;
 }
 
 function socialCardSvg(bt: SnapshotBacktest): string {
@@ -51,7 +51,7 @@ function socialCardSvg(bt: SnapshotBacktest): string {
   const last = values.at(-1) ?? config.startCash;
   const lineColor = stats.totalReturnPct >= 0 ? "#63d471" : "#ff6b6b";
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="硅基文明消费股交易系统">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Silicon Civilization Stocks — US trading system">
   <defs>
     <linearGradient id="bg" x1="0" y1="630" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#101114"/>
@@ -69,18 +69,18 @@ function socialCardSvg(bt: SnapshotBacktest): string {
     <path d="M164 0v630M344 0v630M524 0v630M704 0v630M884 0v630M1064 0v630"/>
   </g>
   <rect x="74" y="70" width="1052" height="490" rx="34" fill="#181a1f" fill-opacity=".68" stroke="#f2f4f1" stroke-opacity=".14" stroke-width="2"/>
-  <text x="112" y="150" fill="#f2b84b" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="28" font-weight="700">DeepSeek · Tushare · A股股票池</text>
-  <text x="112" y="252" fill="#f2f4f1" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="84" font-weight="850">硅基文明消费股</text>
-  <text x="112" y="352" fill="#f2f4f1" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif" font-size="84" font-weight="850">交易系统</text>
-  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+  <text x="112" y="150" fill="#f2b84b" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="28" font-weight="700">DeepSeek · Yahoo Finance · US Equities</text>
+  <text x="112" y="252" fill="#f2f4f1" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="84" font-weight="850">Silicon Civilization</text>
+  <text x="112" y="352" fill="#f2f4f1" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="84" font-weight="850">Stocks</text>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
     <g transform="translate(112 470)">
       <rect width="956" height="54" rx="14" fill="#121418" stroke="#30343b"/>
       <text x="24" y="36" fill="${lineColor}" font-size="28" font-weight="800">${xml(pct(stats.totalReturnPct, 1))}</text>
-      <text x="172" y="35" fill="#9ca39a" font-size="20">回测收益</text>
-      <text x="320" y="35" fill="#f2f4f1" font-size="22" font-weight="700">年化 ${xml(pct(stats.cagrPct, 1))}</text>
-      <text x="508" y="35" fill="#f2f4f1" font-size="22" font-weight="700">回撤 ${xml(pct(stats.maxDrawdownPct, 1))}</text>
-      <text x="694" y="35" fill="#f2f4f1" font-size="22" font-weight="700">夏普 ${stats.sharpe.toFixed(2)}</text>
-      <text x="820" y="35" fill="#9ca39a" font-size="18">${xml(money(last))}</text>
+      <text x="172" y="35" fill="#9ca39a" font-size="20">Return</text>
+      <text x="320" y="35" fill="#f2f4f1" font-size="22" font-weight="700">CAGR ${xml(pct(stats.cagrPct, 1))}</text>
+      <text x="508" y="35" fill="#f2f4f1" font-size="22" font-weight="700">Max DD ${xml(pct(stats.maxDrawdownPct, 1))}</text>
+      <text x="694" y="35" fill="#f2f4f1" font-size="22" font-weight="700">Sharpe ${stats.sharpe.toFixed(2)}</text>
+      <text x="864" y="35" fill="#9ca39a" font-size="18">${xml(money(last))}</text>
     </g>
   </g>
   <polyline points="${points}" fill="none" stroke="${lineColor}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft-glow)"/>
@@ -187,7 +187,7 @@ async function main() {
     const start90 = (() => {
       const d = new Date();
       d.setDate(d.getDate() - 90);
-      return d.toISOString().slice(0, 10).replaceAll("-", "");
+      return d.toISOString().slice(0, 10);
     })();
     const snapshots = await mapPool(u.entries, 4, async (e): Promise<SymbolSnapshot> => {
       const [klines, fund] = await Promise.all([
@@ -232,14 +232,14 @@ async function main() {
       })();
     const padStart = new Date(startDate);
     padStart.setDate(padStart.getDate() - 120);
-    const aksStart = padStart.toISOString().slice(0, 10).replaceAll("-", "");
-    const aksEnd = endDate.replaceAll("-", "");
+    const barStart = padStart.toISOString().slice(0, 10);
+    const barEnd = endDate;
 
     console.log(`[backtest] window ${startDate} → ${endDate} — loading bars…`);
     const series = (
       await mapPool(u.entries, 6, async (entry): Promise<SymbolSeries | null> => {
         const [klRes, fdRes] = await Promise.allSettled([
-          fetchKlines(entry.symbol, aksStart, aksEnd),
+          fetchKlines(entry.symbol, barStart, barEnd),
           fetchFundamental(entry.symbol),
         ]);
         if (klRes.status !== "fulfilled" || klRes.value.length < 20) return null;

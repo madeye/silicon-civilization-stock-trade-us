@@ -11,9 +11,9 @@ const sample = {
   updated_at: "2026-01-01",
   updated_by: "test",
   entries: [
-    { symbol: "688256", name: "寒武纪", theme: "算力", global_supply: false },
-    { symbol: "300476", name: "胜宏科技", theme: "AI-PCB", global_supply: true },
-    { symbol: "600845", name: "宝信软件", theme: "云", global_supply: true },
+    { symbol: "VST", name: "Vistra", theme: "Power", global_supply: false },
+    { symbol: "NVDA", name: "NVIDIA", theme: "Compute / AI Chips", global_supply: true },
+    { symbol: "AVGO", name: "Broadcom", theme: "Compute / AI Chips", global_supply: true },
   ],
 };
 fs.writeFileSync(
@@ -47,7 +47,7 @@ test("readUniverse loads schema fields", () => {
 test("loadEntries returns just the entries", () => {
   const entries = loadEntries();
   assert.equal(entries.length, 3);
-  assert.equal(entries[1].name, "胜宏科技");
+  assert.equal(entries[1].name, "NVIDIA");
   assert.equal(entries[1].global_supply, true);
 });
 
@@ -59,12 +59,12 @@ test("global_supply is honored", () => {
 
 test("writeUniverse round-trips", () => {
   const u = readUniverse();
-  u.entries.push({ symbol: "002463", name: "沪电股份", theme: "AI-PCB", global_supply: true });
+  u.entries.push({ symbol: "ANET", name: "Arista Networks", theme: "Networking", global_supply: true });
   u.updated_by = "round-trip-test";
   writeUniverse(u);
 
   const reloaded = readUniverse();
   assert.equal(reloaded.entries.length, 4);
   assert.equal(reloaded.updated_by, "round-trip-test");
-  assert.equal(reloaded.entries.at(-1)!.symbol, "002463");
+  assert.equal(reloaded.entries.at(-1)!.symbol, "ANET");
 });

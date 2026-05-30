@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://madeye.github.io/silicon-civilization-stock-trade/"),
+  metadataBase: new URL("https://madeye.github.io/silicon-civilization-stock-trade-us/"),
   title: {
-    default: "硅基文明消费股交易系统",
-    template: "%s · 硅基文明消费股交易系统",
+    default: "Silicon Civilization Stocks",
+    template: "%s · Silicon Civilization Stocks",
   },
-  description: "DeepSeek、Tushare 与 AkShare 驱动的 A 股主题股票池、目标价、信号与回测系统。",
+  description: "DeepSeek + Yahoo Finance powered US watchlist, price targets, signals, and backtests for AI infrastructure stocks.",
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
@@ -17,31 +17,31 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "zh_CN",
-    siteName: "硅基文明消费股交易系统",
-    title: "硅基文明消费股交易系统",
-    description: "A 股硅基文明消费主题股票池、分析师目标价、DeepSeek 信号与策略回测。",
+    locale: "en_US",
+    siteName: "Silicon Civilization Stocks",
+    title: "Silicon Civilization Stocks",
+    description: "US silicon-civilization-consumption watchlist, analyst price targets, DeepSeek signals, and strategy backtests.",
     url: "/",
     images: [
       {
         url: "/social-card.png",
         width: 1200,
         height: 630,
-        alt: "硅基文明消费股交易系统社交分享卡片",
+        alt: "Silicon Civilization Stocks social card",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "硅基文明消费股交易系统",
-    description: "A 股硅基文明消费主题股票池、分析师目标价、DeepSeek 信号与策略回测。",
+    title: "Silicon Civilization Stocks",
+    description: "US silicon-civilization-consumption watchlist, analyst price targets, DeepSeek signals, and strategy backtests.",
     images: ["/social-card.png"],
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="zh-CN">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

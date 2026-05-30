@@ -2,19 +2,19 @@
 
 ## Project Structure & Module Organization
 
-This repository contains a Chinese-market “silicon civilization consumer stocks” trading system.
+This repository is a US-market "silicon civilization consumer stocks" trading system.
 
 - `web/`: Next.js 15 App Router frontend, API routes, TypeScript backtests, DeepSeek integration, SQLite cache, and tests.
 - `web/app/`: UI pages and route handlers. Key pages include `page.tsx`, `signals/page.tsx`, and `backtest/page.tsx`.
 - `web/lib/`: shared domain logic such as `universe.ts`, `pyserver.ts`, `deepseek.ts`, `backtest.ts`, and `cache.ts`.
 - `web/test/`: Node test-runner TypeScript tests named `*.test.ts`.
-- `web/data/universe.json`: editable stock universe data.
-- `pyserver/`: FastAPI sidecar for Tushare Pro access and SQLite market-data caching.
+- `web/data/universe.json`: editable stock universe data (US tickers).
+- `pyserver/`: FastAPI sidecar for Yahoo Finance access (with Stooq fallback) and SQLite market-data caching.
 
 ## Build, Test, and Development Commands
 
 - `cd pyserver && uv sync`: install locked Python dependencies.
-- `cd pyserver && uv run uvicorn main:app --port 8001 --reload`: run the Tushare sidecar locally.
+- `cd pyserver && uv run uvicorn main:app --port 8001 --reload`: run the Yahoo Finance sidecar locally.
 - `cd web && npm install`: install frontend dependencies.
 - `cd web && npm run dev`: start the Next.js dev server at `http://localhost:3000`.
 - `cd web && npm test`: run TypeScript unit tests via `node --test --import tsx`.
@@ -27,12 +27,12 @@ Use TypeScript for frontend and shared web logic. Prefer small helpers in `web/l
 
 ## Testing Guidelines
 
-Frontend tests use Node’s built-in test runner. Place tests in `web/test/` with names like `backtest.test.ts` and cover regression-prone logic in `web/lib/`, especially caching, concurrency, universe refresh, and backtest behavior. Run `npm test` and `tsc --noEmit` before submitting changes that touch the web app.
+Frontend tests use Node's built-in test runner. Place tests in `web/test/` with names like `backtest.test.ts` and cover regression-prone logic in `web/lib/`, especially caching, concurrency, universe refresh, and backtest behavior. Run `npm test` and `tsc --noEmit` before submitting changes that touch the web app.
 
 ## Commit & Pull Request Guidelines
 
-Recent history uses concise imperative commit subjects, for example `Replace akshare with Tushare Pro` and `Fix backtest 500 + expand test coverage 1→18`. Keep commits focused and avoid mixing web, sidecar, and data-only changes unless they are part of one feature. Pull requests should include a behavior summary, test commands run, linked issue if available, screenshots for UI changes, and required environment variables.
+Recent history uses concise imperative commit subjects, for example `Add Yahoo Finance datasource` and `Remove A-share price-limit logic`. Keep commits focused and avoid mixing web, sidecar, and data-only changes unless they are part of one feature. Pull requests should include a behavior summary, test commands run, linked issue if available, screenshots for UI changes, and required environment variables.
 
 ## Security & Configuration Tips
 
-Copy `pyserver/env.example` to `pyserver/.env` and set `TUSHARE_TOKEN`. Copy `web/env.example.txt` to `web/.env.local` and set `DEEPSEEK_API_KEY`, `DEEPSEEK_BASE_URL`, and `PYSERVER_URL` as needed. Keep API keys local only.
+Copy `pyserver/env.example` to `pyserver/.env`; the sidecar runs key-free, with optional `FINNHUB_API_KEY` / `ALPHAVANTAGE_API_KEY` enabling extra fallback providers. Copy `web/env.example.txt` to `web/.env.local` and set `DEEPSEEK_API_KEY`, `DEEPSEEK_BASE_URL`, and `PYSERVER_URL` as needed. Keep API keys local only.

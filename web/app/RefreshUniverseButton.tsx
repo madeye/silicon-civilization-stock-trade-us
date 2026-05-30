@@ -62,7 +62,7 @@ export default function RefreshUniverseButton() {
   return (
     <div>
       <button onClick={run} disabled={busy}>
-        {busy ? "刷新中…" : "✨ DeepSeek 刷新股票池"}
+        {busy ? "Refreshing…" : "✨ DeepSeek refresh watchlist"}
       </button>
 
       {(busy || logs.length > 0 || result || error) && (
@@ -70,7 +70,7 @@ export default function RefreshUniverseButton() {
           {progress && progress.total > 0 && (
             <>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span>校验新增标的 {progress.done} / {progress.total}</span>
+                <span>Validating new tickers {progress.done} / {progress.total}</span>
                 <span style={{ color: "var(--muted)" }}>{(pct * 100).toFixed(0)}%</span>
               </div>
               <div style={{
@@ -90,13 +90,13 @@ export default function RefreshUniverseButton() {
           {error && <div style={{ color: "var(--danger)", marginTop: 8 }}>{error}</div>}
           {result && (
             <div style={{ marginTop: 10 }}>
-              <strong>变更已应用</strong> · 当前 {result.finalCount} 只
+              <strong>Changes applied</strong> · {result.finalCount} names now
               <div style={{ marginTop: 4 }}>
-                新增 {result.applied.added.length} · 移除 {result.applied.removed.length} · 改类 {result.applied.reclassified.length} · 拒绝 {result.applied.rejected.length}
+                Added {result.applied.added.length} · Removed {result.applied.removed.length} · Reclassified {result.applied.reclassified.length} · Rejected {result.applied.rejected.length}
               </div>
               {result.applied.added.length > 0 && (
                 <div style={{ marginTop: 6, color: "var(--accent)" }}>
-                  + {result.applied.added.map((a) => `${a.symbol} ${a.name}(${a.theme})`).join("、")}
+                  + {result.applied.added.map((a) => `${a.symbol} ${a.name} (${a.theme})`).join(", ")}
                 </div>
               )}
               {result.applied.rejected.length > 0 && (

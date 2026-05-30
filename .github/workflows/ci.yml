@@ -47,7 +47,7 @@ jobs:
         run: npm run build
 
   # ----------------------------------------------------------------------
-  # Python sidecar: syntax + import check. We do NOT exercise akshare
+  # Python sidecar: syntax + import check. We do NOT exercise Yahoo Finance
   # network calls in CI — they hit upstream and are flaky by design.
   # ----------------------------------------------------------------------
   pyserver:
@@ -72,9 +72,7 @@ jobs:
         run: uv run python -m py_compile main.py
 
       - name: Import check
-        # Confirms fastapi/tushare/pandas/pydantic all resolve and main.py
-        # imports without executing network I/O. ts.set_token just writes
-        # ~/.tushare/token; no validation happens until an actual API call.
-        env:
-          TUSHARE_TOKEN: dummy-ci-token
+        # Confirms fastapi/yfinance/pandas/pydantic all resolve and main.py
+        # imports without executing network I/O. The sidecar needs no API key:
+        # Yahoo Finance is key-free and the optional providers stay disabled.
         run: uv run python -c "import importlib.util as u; spec = u.spec_from_file_location('m','main.py'); m = u.module_from_spec(spec); spec.loader.exec_module(m); print('main loaded, app =', m.app)"

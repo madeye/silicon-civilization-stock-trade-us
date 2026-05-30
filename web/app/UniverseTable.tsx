@@ -222,41 +222,41 @@ export default function UniverseTable({
     <>
       <div className="toolbar">
         <div className="field">
-          <span>搜索</span>
+          <span>Search</span>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="代码、名称、主题"
+            placeholder="Ticker, name, theme"
           />
         </div>
         <div className="field">
-          <span>主题</span>
+          <span>Theme</span>
           <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-            <option value="all">全部主题</option>
+            <option value="all">All themes</option>
             {themes.map((t) => <option key={t} value={t}>{t}</option>)}
           </select>
         </div>
         <label className="check">
           <input type="checkbox" checked={onlyGlobal} onChange={(e) => setOnlyGlobal(e.target.checked)} />
-          <span>全球供应链</span>
+          <span>Global supply chain</span>
         </label>
         <label className="check">
           <input type="checkbox" checked={onlyUpside} onChange={(e) => setOnlyUpside(e.target.checked)} />
-          <span>目标价高于现价</span>
+          <span>Target above price</span>
         </label>
         <div className="toolbar-status">
-          显示 {filtered.length}/{rows.length} · 价格 {priceCount}/{rows.length} · 评级 {ratedCount} · 上行 {upsideCount}
+          Showing {filtered.length}/{rows.length} · Price {priceCount}/{rows.length} · Rated {ratedCount} · Upside {upsideCount}
         </div>
-        <div className="fetch-progress" aria-label="pyserver 数据加载进度">
+        <div className="fetch-progress" aria-label="pyserver data load progress">
           <div className="fetch-progress-meta">
-            <span>{isFetching ? "正在从 pyserver 获取数据" : "pyserver 数据加载完成"}</span>
+            <span>{isFetching ? "Fetching data from pyserver" : "pyserver data loaded"}</span>
             <span>{progressPct}%</span>
           </div>
           <div className="fetch-progress-track">
             <div className="fetch-progress-bar" style={{ width: `${progressPct}%` }} />
           </div>
           <div className="fetch-progress-detail">
-            现价 {progress.spotDone}/{progress.total} · 目标价/评级 {progress.analystDone}/{progress.total}
+            Price {progress.spotDone}/{progress.total} · Target/rating {progress.analystDone}/{progress.total}
           </div>
         </div>
       </div>
@@ -266,19 +266,19 @@ export default function UniverseTable({
           <div key={theme} className="theme-panel">
             <div className="theme-title">
               <strong>{theme}</strong>
-              <span>{items.length} 只</span>
+              <span>{items.length}</span>
             </div>
             <div className="table-wrap">
               <table>
                 <thead>
                   <tr>
-                    <th>代码</th>
-                    <th>名称</th>
-                    <th>全球链</th>
-                    <th className="num">现价</th>
-                    <th className="num">目标价</th>
-                    <th className="num">上行</th>
-                    <th className="num">买入评级</th>
+                    <th>Ticker</th>
+                    <th>Name</th>
+                    <th>Global</th>
+                    <th className="num">Price</th>
+                    <th className="num">Target</th>
+                    <th className="num">Upside</th>
+                    <th className="num">Buy rating</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -291,16 +291,16 @@ export default function UniverseTable({
                           <div className="stock-name">{r.name}</div>
                           {r.note && <div className="stock-note">{r.note}</div>}
                         </td>
-                        <td>{r.global_supply ? <span className="pill good">是</span> : <span className="pill">否</span>}</td>
-                        <td className="num">{r.analyst?.current_price?.toFixed(2) ?? (r.loading ? "…" : "无")}</td>
-                        <td className="num">{r.analyst?.implied_target?.toFixed(2) ?? (r.loading ? "…" : "无")}</td>
+                        <td>{r.global_supply ? <span className="pill good">Yes</span> : <span className="pill">No</span>}</td>
+                        <td className="num">{r.analyst?.current_price?.toFixed(2) ?? (r.loading ? "…" : "—")}</td>
+                        <td className="num">{r.analyst?.implied_target?.toFixed(2) ?? (r.loading ? "…" : "—")}</td>
                         <td className={`num ${u == null ? "muted" : u > 0 ? "pos" : "neg"}`}>
-                          {u == null ? (r.loading ? "…" : "无") : `${u > 0 ? "+" : ""}${u.toFixed(0)}%`}
+                          {u == null ? (r.loading ? "…" : "—") : `${u > 0 ? "+" : ""}${u.toFixed(0)}%`}
                         </td>
                         <td className="num muted">
                           {r.analyst?.buy_count != null && r.analyst?.total_count
                             ? `${r.analyst.buy_count}/${r.analyst.total_count}`
-                            : r.loading ? "…" : "无"}
+                            : r.loading ? "…" : "—"}
                         </td>
                       </tr>
                     );

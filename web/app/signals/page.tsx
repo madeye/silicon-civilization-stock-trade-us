@@ -19,7 +19,7 @@ async function loadSignals() {
   const start = (() => {
     const d = new Date();
     d.setDate(d.getDate() - 90);
-    return d.toISOString().slice(0, 10).replaceAll("-", "");
+    return d.toISOString().slice(0, 10);
   })();
 
   const snapshots: LiveSnapshot[] = await Promise.all(
@@ -69,44 +69,44 @@ export default async function SignalsPage() {
 
   return (
     <div className="container">
-      <Link href="/" className="back-link">返回股票池</Link>
+      <Link href="/" className="back-link">Back to watchlist</Link>
       <header className="page-header compact">
         <div>
           <div className="eyebrow">Live scoring</div>
-          <h1>实时信号</h1>
-          <p>以 PEG 和利润增速/估值匹配为主，短期价格指标降权，生成 5-20 个交易日动作建议。</p>
+          <h1>Live Signals</h1>
+          <p>Weighted toward PEG and earnings growth / valuation fit, with short-term price signals down-weighted, producing 5-20 trading-day action calls.</p>
         </div>
       </header>
       {error && (
         <div className="card" style={{ borderColor: "var(--danger)" }}>
-          <strong>加载失败：</strong> {error}
+          <strong>Load failed:</strong> {error}
           <p style={{ color: "var(--muted)" }}>
-            请确认 pyserver 运行在 <code>{process.env.PYSERVER_URL ?? "http://localhost:8001"}</code>，
-            且 <code>DEEPSEEK_API_KEY</code> 已配置。
+            Confirm pyserver is running at <code>{process.env.PYSERVER_URL ?? "http://localhost:8001"}</code>{" "}
+            and that <code>DEEPSEEK_API_KEY</code> is set.
           </p>
         </div>
       )}
       {!error && (
         <div className="theme-panel">
           <div className="theme-title">
-            <strong>信号列表</strong>
-            <span>{rows.filter((r) => r.signal?.action === "buy").length} 买入 · {rows.filter((r) => r.signal?.action === "sell").length} 卖出</span>
+            <strong>Signals</strong>
+            <span>{rows.filter((r) => r.signal?.action === "buy").length} buy · {rows.filter((r) => r.signal?.action === "sell").length} sell</span>
           </div>
           <div className="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>代码</th>
-                  <th>名称</th>
-                  <th>主题</th>
-                  <th>动作</th>
-                  <th className="num">现价</th>
-                  <th className="num">置信度</th>
-                  <th className="num">仓位</th>
+                  <th>Ticker</th>
+                  <th>Name</th>
+                  <th>Theme</th>
+                  <th>Action</th>
+                  <th className="num">Price</th>
+                  <th className="num">Confidence</th>
+                  <th className="num">Size</th>
                   <th className="num">PE(TTM)</th>
-                  <th className="num">利润同比</th>
+                  <th className="num">Profit YoY</th>
                   <th className="num">PEG</th>
-                  <th>理由</th>
+                  <th>Rationale</th>
                 </tr>
               </thead>
               <tbody>

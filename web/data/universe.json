@@ -1,453 +1,272 @@
 {
-  "$schema_note": "硅基文明消费股 watchlist. Edit via UI or directly. Each entry: {symbol, name, theme, note?}.",
-  "updated_at": "2026-05-28",
-  "updated_by": "manual-remove-weak",
+  "$schema_note": "US silicon-civilization-consumption watchlist. Edit via UI or directly. Each entry: {symbol, name, theme, note?, global_supply?}.",
+  "updated_at": "2026-05-30",
+  "updated_by": "us-market-refactor",
   "entries": [
     {
-      "symbol": "688256",
-      "name": "寒武纪",
-      "theme": "算力/AI芯片",
-      "note": "国产 AI 训练/推理芯片龙头",
-      "global_supply": false
-    },
-    {
-      "symbol": "688041",
-      "name": "海光信息",
-      "theme": "算力/AI芯片",
-      "note": "DCU + x86 CPU",
-      "global_supply": false
-    },
-    {
-      "symbol": "688047",
-      "name": "龙芯中科",
-      "theme": "算力/AI芯片",
-      "note": "自主指令集 CPU",
-      "global_supply": false
-    },
-    {
-      "symbol": "300474",
-      "name": "景嘉微",
-      "theme": "算力/AI芯片",
-      "note": "国产 GPU",
-      "global_supply": false
-    },
-    {
-      "symbol": "002049",
-      "name": "紫光国微",
-      "theme": "算力/AI芯片",
-      "note": "特种 FPGA/SoC",
-      "global_supply": false
-    },
-    {
-      "symbol": "688385",
-      "name": "复旦微电",
-      "theme": "算力/AI芯片",
-      "note": "FPGA/MCU",
-      "global_supply": false
-    },
-    {
-      "symbol": "300308",
-      "name": "中际旭创",
-      "theme": "光模块",
-      "note": "全球 800G/1.6T 龙头",
+      "symbol": "NVDA",
+      "name": "NVIDIA",
+      "theme": "Compute / AI Chips",
+      "note": "AI GPU/accelerator leader; CUDA moat",
       "global_supply": true
     },
     {
-      "symbol": "300502",
-      "name": "新易盛",
-      "theme": "光模块",
-      "note": "800G 第二梯队",
+      "symbol": "AMD",
+      "name": "Advanced Micro Devices",
+      "theme": "Compute / AI Chips",
+      "note": "MI300/MI400 GPU + EPYC CPU",
       "global_supply": true
     },
     {
-      "symbol": "300394",
-      "name": "天孚通信",
-      "theme": "光模块",
-      "note": "光器件，光模块板块联动",
+      "symbol": "AVGO",
+      "name": "Broadcom",
+      "theme": "Compute / AI Chips",
+      "note": "Custom AI ASIC + AI networking",
       "global_supply": true
     },
     {
-      "symbol": "000988",
-      "name": "华工科技",
-      "theme": "光模块",
-      "note": "光模块/激光",
+      "symbol": "MRVL",
+      "name": "Marvell Technology",
+      "theme": "Compute / AI Chips",
+      "note": "Custom AI silicon + interconnect",
       "global_supply": true
     },
     {
-      "symbol": "002281",
-      "name": "光迅科技",
-      "theme": "光模块",
-      "note": "光器件+光模块",
+      "symbol": "ARM",
+      "name": "Arm Holdings",
+      "theme": "Compute / AI Chips",
+      "note": "CPU IP for data-center & edge AI",
       "global_supply": true
     },
     {
-      "symbol": "603083",
-      "name": "剑桥科技",
-      "theme": "光模块",
-      "note": "光模块新势力",
+      "symbol": "QCOM",
+      "name": "Qualcomm",
+      "theme": "Compute / AI Chips",
+      "note": "Edge AI / inference",
       "global_supply": true
     },
     {
-      "symbol": "301205",
-      "name": "联特科技",
-      "theme": "光模块",
+      "symbol": "INTC",
+      "name": "Intel",
+      "theme": "Compute / AI Chips",
+      "note": "CPU + foundry build-out",
       "global_supply": true
     },
     {
-      "symbol": "300620",
-      "name": "光库科技",
-      "theme": "光模块",
-      "note": "铌酸锂调制器芯片及器件，薄膜铌酸锂光子集成",
+      "symbol": "TSM",
+      "name": "Taiwan Semiconductor",
+      "theme": "Foundry",
+      "note": "Advanced-node foundry leader for AI chips",
       "global_supply": true
     },
     {
-      "symbol": "600330",
-      "name": "天通股份",
-      "theme": "半导体材料",
-      "note": "铌酸锂单晶/晶圆，上游关键原材料",
-      "global_supply": false
-    },
-    {
-      "symbol": "002222",
-      "name": "福晶科技",
-      "theme": "半导体材料",
-      "note": "铌酸锂等光学晶体材料",
-      "global_supply": false
-    },
-    {
-      "symbol": "601138",
-      "name": "工业富联",
-      "theme": "AI服务器",
-      "note": "全球 AI 服务器/HPC 代工核心",
+      "symbol": "GFS",
+      "name": "GlobalFoundries",
+      "theme": "Foundry",
+      "note": "Specialty foundry",
       "global_supply": true
     },
     {
-      "symbol": "000977",
-      "name": "浪潮信息",
-      "theme": "AI服务器",
-      "note": "国内最大 AI 服务器厂商",
-      "global_supply": false
-    },
-    {
-      "symbol": "603019",
-      "name": "中科曙光",
-      "theme": "AI服务器",
-      "global_supply": false
-    },
-    {
-      "symbol": "000938",
-      "name": "紫光股份",
-      "theme": "AI服务器",
-      "note": "新华三",
-      "global_supply": false
-    },
-    {
-      "symbol": "301018",
-      "name": "申菱环境",
-      "theme": "液冷",
-      "note": "数据中心精密温控",
-      "global_supply": false
-    },
-    {
-      "symbol": "300499",
-      "name": "高澜股份",
-      "theme": "液冷",
-      "global_supply": false
-    },
-    {
-      "symbol": "300602",
-      "name": "飞荣达",
-      "theme": "液冷",
-      "note": "导热散热材料",
-      "global_supply": false
-    },
-    {
-      "symbol": "600900",
-      "name": "长江电力",
-      "theme": "电力",
-      "note": "稳定基荷水电",
-      "global_supply": false
-    },
-    {
-      "symbol": "003816",
-      "name": "中国广核",
-      "theme": "电力",
-      "note": "核电",
-      "global_supply": false
-    },
-    {
-      "symbol": "600886",
-      "name": "国投电力",
-      "theme": "电力",
-      "global_supply": false
-    },
-    {
-      "symbol": "600011",
-      "name": "华能国际",
-      "theme": "电力",
-      "note": "火电+新能源",
-      "global_supply": false
-    },
-    {
-      "symbol": "300383",
-      "name": "光环新网",
-      "theme": "IDC",
-      "global_supply": false
-    },
-    {
-      "symbol": "603881",
-      "name": "数据港",
-      "theme": "IDC",
-      "global_supply": false
-    },
-    {
-      "symbol": "300738",
-      "name": "奥飞数据",
-      "theme": "IDC",
-      "global_supply": false
-    },
-    {
-      "symbol": "002335",
-      "name": "科华数据",
-      "theme": "IDC",
-      "note": "IDC + 数据中心电源",
-      "global_supply": false
-    },
-    {
-      "symbol": "603290",
-      "name": "斯达半导",
-      "theme": "功率半导体",
-      "note": "IGBT 龙头",
-      "global_supply": false
-    },
-    {
-      "symbol": "688187",
-      "name": "时代电气",
-      "theme": "功率半导体",
-      "note": "高压 IGBT/SiC",
-      "global_supply": false
-    },
-    {
-      "symbol": "688711",
-      "name": "宏微科技",
-      "theme": "功率半导体",
-      "note": "IGBT/SiC 模块",
-      "global_supply": false
-    },
-    {
-      "symbol": "605111",
-      "name": "新洁能",
-      "theme": "功率半导体",
-      "note": "MOSFET",
-      "global_supply": false
-    },
-    {
-      "symbol": "600460",
-      "name": "士兰微",
-      "theme": "功率半导体",
-      "note": "IDM 功率器件",
-      "global_supply": false
-    },
-    {
-      "symbol": "688396",
-      "name": "华润微",
-      "theme": "功率半导体",
-      "note": "IDM 功率/MEMS",
-      "global_supply": false
-    },
-    {
-      "symbol": "600745",
-      "name": "闻泰科技",
-      "theme": "功率半导体",
-      "note": "安世 IGBT/MOSFET",
+      "symbol": "UMC",
+      "name": "United Microelectronics",
+      "theme": "Foundry",
+      "note": "Mature-node foundry",
       "global_supply": true
     },
     {
-      "symbol": "603986",
-      "name": "兆易创新",
-      "theme": "存储/HBM",
-      "note": "NAND/DRAM/MCU 龙头",
-      "global_supply": false
-    },
-    {
-      "symbol": "688008",
-      "name": "澜起科技",
-      "theme": "存储/HBM",
-      "note": "DDR5/CXL 内存接口",
+      "symbol": "COHR",
+      "name": "Coherent",
+      "theme": "Optical / Interconnect",
+      "note": "800G/1.6T optical transceivers & lasers",
       "global_supply": true
     },
     {
-      "symbol": "300223",
-      "name": "北京君正",
-      "theme": "存储/HBM",
-      "note": "车规存储+处理器",
-      "global_supply": false
-    },
-    {
-      "symbol": "301308",
-      "name": "江波龙",
-      "theme": "存储/HBM",
-      "note": "存储模组",
-      "global_supply": false
-    },
-    {
-      "symbol": "002156",
-      "name": "通富微电",
-      "theme": "存储/HBM",
-      "note": "AMD HBM 封测",
+      "symbol": "LITE",
+      "name": "Lumentum",
+      "theme": "Optical / Interconnect",
+      "note": "Optical components for AI networking",
       "global_supply": true
     },
     {
-      "symbol": "600584",
-      "name": "长电科技",
-      "theme": "存储/HBM",
-      "note": "封测龙头",
+      "symbol": "CIEN",
+      "name": "Ciena",
+      "theme": "Optical / Interconnect",
+      "note": "Coherent optical networking",
       "global_supply": true
     },
     {
-      "symbol": "002185",
-      "name": "华天科技",
-      "theme": "存储/HBM",
-      "note": "封测",
+      "symbol": "CRDO",
+      "name": "Credo Technology",
+      "theme": "Optical / Interconnect",
+      "note": "Active electrical cables / SerDes for AI clusters",
       "global_supply": true
     },
     {
-      "symbol": "002371",
-      "name": "北方华创",
-      "theme": "半导体设备",
-      "note": "刻蚀/沉积/清洗龙头",
+      "symbol": "ANET",
+      "name": "Arista Networks",
+      "theme": "Networking",
+      "note": "AI data-center Ethernet switching",
       "global_supply": true
     },
     {
-      "symbol": "688012",
-      "name": "中微公司",
-      "theme": "半导体设备",
-      "note": "刻蚀机",
+      "symbol": "SMCI",
+      "name": "Super Micro Computer",
+      "theme": "AI Servers",
+      "note": "AI server / liquid-cooled rack systems",
       "global_supply": true
     },
     {
-      "symbol": "688072",
-      "name": "拓荆科技",
-      "theme": "半导体设备",
-      "note": "薄膜沉积",
+      "symbol": "DELL",
+      "name": "Dell Technologies",
+      "theme": "AI Servers",
+      "note": "AI server systems (PowerEdge)",
+      "global_supply": true
+    },
+    {
+      "symbol": "HPE",
+      "name": "Hewlett Packard Enterprise",
+      "theme": "AI Servers",
+      "note": "AI servers + HPC (Cray)",
+      "global_supply": true
+    },
+    {
+      "symbol": "VRT",
+      "name": "Vertiv Holdings",
+      "theme": "Thermal / Power Infra",
+      "note": "Data-center power & liquid cooling",
+      "global_supply": true
+    },
+    {
+      "symbol": "GEV",
+      "name": "GE Vernova",
+      "theme": "Power",
+      "note": "Power generation & grid equipment",
+      "global_supply": true
+    },
+    {
+      "symbol": "VST",
+      "name": "Vistra",
+      "theme": "Power",
+      "note": "Merchant power incl. nuclear for data centers",
       "global_supply": false
     },
     {
-      "symbol": "688126",
-      "name": "沪硅产业",
-      "theme": "半导体材料",
-      "note": "12 寸硅片",
+      "symbol": "CEG",
+      "name": "Constellation Energy",
+      "theme": "Power",
+      "note": "Largest US nuclear fleet; data-center PPAs",
       "global_supply": false
     },
     {
-      "symbol": "300476",
-      "name": "胜宏科技",
-      "theme": "AI-PCB",
-      "note": "NVIDIA GB200 PCB 主力",
+      "symbol": "NRG",
+      "name": "NRG Energy",
+      "theme": "Power",
+      "note": "Power generation / retail",
+      "global_supply": false
+    },
+    {
+      "symbol": "TLN",
+      "name": "Talen Energy",
+      "theme": "Power",
+      "note": "Nuclear power; data-center colocation deals",
+      "global_supply": false
+    },
+    {
+      "symbol": "EQIX",
+      "name": "Equinix",
+      "theme": "IDC / Data Center",
+      "note": "Global interconnection data-center REIT",
+      "global_supply": false
+    },
+    {
+      "symbol": "DLR",
+      "name": "Digital Realty",
+      "theme": "IDC / Data Center",
+      "note": "Hyperscale data-center REIT",
+      "global_supply": false
+    },
+    {
+      "symbol": "MU",
+      "name": "Micron Technology",
+      "theme": "Memory / HBM",
+      "note": "DRAM / HBM for AI accelerators",
       "global_supply": true
     },
     {
-      "symbol": "002463",
-      "name": "沪电股份",
-      "theme": "AI-PCB",
-      "note": "AI 服务器主板",
+      "symbol": "AMAT",
+      "name": "Applied Materials",
+      "theme": "Semi Equipment",
+      "note": "Deposition / etch / CMP leader",
       "global_supply": true
     },
     {
-      "symbol": "002916",
-      "name": "深南电路",
-      "theme": "AI-PCB",
-      "note": "PCB 龙头",
-      "global_supply": false
-    },
-    {
-      "symbol": "002938",
-      "name": "鹏鼎控股",
-      "theme": "AI-PCB",
-      "note": "苹果链 + AI 服务器",
+      "symbol": "LRCX",
+      "name": "Lam Research",
+      "theme": "Semi Equipment",
+      "note": "Etch & deposition; HBM/3D NAND",
       "global_supply": true
     },
     {
-      "symbol": "600183",
-      "name": "生益科技",
-      "theme": "AI-PCB",
-      "note": "高速覆铜板 (CCL)",
+      "symbol": "KLAC",
+      "name": "KLA Corporation",
+      "theme": "Semi Equipment",
+      "note": "Process control / inspection",
       "global_supply": true
     },
     {
-      "symbol": "002436",
-      "name": "兴森科技",
-      "theme": "AI-PCB",
-      "global_supply": false
-    },
-    {
-      "symbol": "688261",
-      "name": "东微半导",
-      "theme": "功率半导体",
-      "note": "高压超级结MOSFET龙头，AI服务器电源核心功率器件供应商",
-      "global_supply": false
-    },
-    {
-      "symbol": "688019",
-      "name": "安集科技",
-      "theme": "半导体材料",
-      "note": "CMP抛光液龙头，已供货台积电等全球先进制程晶圆厂",
+      "symbol": "ASML",
+      "name": "ASML Holding",
+      "theme": "Semi Equipment",
+      "note": "EUV lithography monopoly",
       "global_supply": true
     },
     {
-      "symbol": "002409",
-      "name": "雅克科技",
-      "theme": "半导体材料",
-      "note": "半导体前驱体与SOD龙头，向SK海力士、三星等出货用于HBM先进制程",
+      "symbol": "ENTG",
+      "name": "Entegris",
+      "theme": "Semi Materials",
+      "note": "Advanced-node materials & purity",
       "global_supply": true
     },
     {
-      "symbol": "688981",
-      "name": "中芯国际",
-      "theme": "晶圆代工",
-      "note": "中国大陆晶圆代工龙头，先进制程为AI芯片提供代工",
-      "global_supply": false
-    },
-    {
-      "symbol": "600941",
-      "name": "中国移动",
-      "theme": "云/AI基建",
-      "note": "国内最大运营商，移动云和AI基础设施服务",
-      "global_supply": false
-    },
-    {
-      "symbol": "601728",
-      "name": "中国电信",
-      "theme": "云/AI基建",
-      "note": "天翼云稳居国内前三，支撑AI算力调度",
-      "global_supply": false
-    },
-    {
-      "symbol": "688082",
-      "name": "盛美上海",
-      "theme": "半导体设备",
-      "note": "清洗设备龙头，TSV电镀设备用于先进封装",
-      "global_supply": false
-    },
-    {
-      "symbol": "300346",
-      "name": "南大光电",
-      "theme": "半导体材料",
-      "note": "国内光刻胶领先，高纯电子特气用于先进制程",
-      "global_supply": false
-    },
-    {
-      "symbol": "000021",
-      "name": "深科技",
-      "theme": "存储/HBM",
-      "note": "内存芯片封测龙头，为海力士等国际大厂提供存储芯片封装测试服务，间接受益于HBM扩产",
+      "symbol": "MSFT",
+      "name": "Microsoft",
+      "theme": "Cloud / AI Infra",
+      "note": "Azure AI; OpenAI partner",
       "global_supply": true
     },
     {
-      "symbol": "002475",
-      "name": "立讯精密",
-      "theme": "AI服务器",
-      "note": "进入英伟达GB200供应链，提供服务器组装及高速铜缆互连组件，深度参与全球AI服务器制造",
+      "symbol": "GOOGL",
+      "name": "Alphabet",
+      "theme": "Cloud / AI Infra",
+      "note": "Google Cloud + TPU",
+      "global_supply": true
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon",
+      "theme": "Cloud / AI Infra",
+      "note": "AWS + Trainium/Inferentia",
+      "global_supply": true
+    },
+    {
+      "symbol": "ORCL",
+      "name": "Oracle",
+      "theme": "Cloud / AI Infra",
+      "note": "OCI GPU cloud; large AI backlog",
+      "global_supply": true
+    },
+    {
+      "symbol": "NBIS",
+      "name": "Nebius Group",
+      "theme": "Cloud / AI Infra",
+      "note": "AI-native GPU cloud",
+      "global_supply": true
+    },
+    {
+      "symbol": "CRWV",
+      "name": "CoreWeave",
+      "theme": "Cloud / AI Infra",
+      "note": "Specialized GPU cloud for AI training",
       "global_supply": true
     }
   ]

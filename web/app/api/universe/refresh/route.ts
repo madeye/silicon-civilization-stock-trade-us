@@ -15,12 +15,12 @@ export async function POST(_req: NextRequest) {
       };
       try {
         const current = readUniverse();
-        send({ type: "log", message: `当前股票池 ${current.entries.length} 只，请求 DeepSeek 提议变更…` });
+        send({ type: "log", message: `Current watchlist: ${current.entries.length} names — asking DeepSeek for changes…` });
 
         const proposal = await proposeRefresh(current);
         send({
           type: "log",
-          message: `提议: +${proposal.adds.length} / -${proposal.removes.length} / 改类 ${proposal.reclassifies.length}`,
+          message: `Proposal: +${proposal.adds.length} / -${proposal.removes.length} / reclassify ${proposal.reclassifies.length}`,
         });
         send({ type: "log", message: proposal.rationale });
 
@@ -35,7 +35,7 @@ export async function POST(_req: NextRequest) {
             validated++;
             send({
               type: "log",
-              message: `${ok ? "✓" : "✗"} 验证 ${symbol}`,
+              message: `${ok ? "✓" : "✗"} validated ${symbol}`,
             });
             send({ type: "progress", done: validated, total });
           },

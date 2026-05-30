@@ -32,8 +32,8 @@ export async function POST(req: NextRequest) {
 
   const padStart = new Date(cfg.startDate);
   padStart.setDate(padStart.getDate() - 120);
-  const aksStart = padStart.toISOString().slice(0, 10).replaceAll("-", "");
-  const aksEnd = cfg.endDate.replaceAll("-", "");
+  const barStart = padStart.toISOString().slice(0, 10);
+  const barEnd = cfg.endDate;
 
   const encoder = new TextEncoder();
   const stream = new ReadableStream<Uint8Array>({
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
         let failed = 0;
         const loadedSeries = await mapPool(universe, LOAD_CONCURRENCY, async (entry): Promise<SymbolSeries | null> => {
           const [klinesRes, fundRes] = await Promise.allSettled([
-            fetchKlines(entry.symbol, aksStart, aksEnd),
+            fetchKlines(entry.symbol, barStart, barEnd),
             fetchFundamental(entry.symbol),
           ]);
           loaded++;
