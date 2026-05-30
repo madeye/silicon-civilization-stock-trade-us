@@ -1,9 +1,9 @@
 // DeepSeek-driven universe refresh.
 //
 // Asks the model to act as a sector curator: given the current watchlist
-// and the 硅基文明消费 thesis, propose ADDS / REMOVES / RECLASSIFIES.
-// Every proposed symbol is validated against pyserver before being written
-// (DeepSeek will otherwise hallucinate codes that don't trade).
+// and the silicon-civilization-consumption thesis, propose ADDS / REMOVES /
+// RECLASSIFIES. Every proposed symbol is validated against pyserver before
+// being written (DeepSeek will otherwise hallucinate tickers that don't trade).
 import { chat } from "./deepseek";
 import { fetchFundamental } from "./pyserver";
 import type { UniverseEntry, UniverseFile } from "./universe";
@@ -27,32 +27,41 @@ export interface RefreshResult {
   finalCount: number;
 }
 
-const CURATOR_SYSTEM = `你是中国 A 股的硅基文明消费股研究员。
+const CURATOR_SYSTEM = `You are a US-equity research curator for the silicon-civilization-consumption theme.
 
-主题：硅基文明（AI 算力体）自身为了存在与扩张需要"消费"的东西 ——
-算力芯片、光模块/高速互连、AI 服务器、液冷散热、功率半导体（IGBT/SiC/MOSFET）、
-电力(绿电+核电)、IDC、HBM/存储、半导体设备与材料、高速 PCB/CCL、晶圆代工、云。
+Theme: the things the silicon civilization (the AI compute complex) must
+"consume" to exist and expand — compute/AI chips (GPUs/accelerators/CPUs),
+optical modules and high-speed interconnect, AI servers, liquid cooling, power
+(clean + nuclear), IDC/data centers, HBM/memory, semiconductor equipment and
+materials, high-speed PCB, foundry, and cloud.
 
-任务：审阅当前股票池，发现遗漏的子主题与未覆盖的龙头，识别需要剔除的标的或重新分类的标的。
+Task: review the current watchlist, find missing sub-themes and uncovered
+leaders, and flag names that should be removed or reclassified.
 
-要求：
-- 添加项必须是 A 股真实上市公司，给出 6 位股票代码、中文简称、所属子主题、一句话说明。
-- 不要添加港股、美股或任何 hk 前缀代码。
-- 每个添加项必须标注 global_supply (布尔)：是否进入全球 AI 供应链（向 NVIDIA / AMD / Apple / Google /
-  Microsoft / TSMC / 三星 / 海力士 / 全球 IDM 大批量供货）。纯内销标 false。
-- 优先补齐"龙头缺失"的子主题，举例：之前漏了 胜宏科技 (300476) 在 AI-PCB、工业富联 (601138) 在 AI 服务器、
-  整条 AIDC 功率半导体链 (IGBT/SiC/MOSFET)。
-- 不要包含 ST、暂停上市、纯人类消费品（白酒/食品/服饰）。
-- 子主题命名沿用当前列表（算力/AI芯片、光模块、AI服务器、液冷、电力、IDC、功率半导体、存储/HBM、半导体设备、半导体材料、AI-PCB、晶圆代工、云/AI基建）。
+Requirements:
+- Each add must be a real US-listed company (NYSE/Nasdaq). Give the ticker
+  (Yahoo style, e.g. NVDA, BRK-B), company name, sub-theme, and a one-line note.
+- US tickers only — no A-share 6-digit codes, no Hong Kong (hk-prefixed) codes,
+  no other non-US listings.
+- Each add must set global_supply (boolean): whether the company is a direct
+  supplier into the global AI hardware supply chain. Pure power utilities and
+  domestic-only infra are false.
+- Prioritize filling "missing leader" sub-themes (e.g. networking, optical
+  interconnect, semi equipment, memory/HBM, power for data centers).
+- Exclude pure human-consumer names (food, apparel, beverages).
+- Reuse the existing sub-theme names where possible (Compute / AI Chips,
+  Optical / Interconnect, Networking, AI Servers, Thermal / Power Infra, Power,
+  IDC / Data Center, Memory / HBM, Semi Equipment, Semi Materials, Foundry,
+  Cloud / AI Infra).
 
-严格输出 JSON：
+Output STRICT JSON:
 {
   "adds": [{"symbol":"...","name":"...","theme":"...","note":"...","global_supply":true|false}, ...],
   "removes": ["symbol", ...],
-  "reclassifies": [{"symbol":"...","theme":"新主题"}, ...],
-  "rationale": "中文,<=200字,总结主要变更与逻辑"
+  "reclassifies": [{"symbol":"...","theme":"new theme"}, ...],
+  "rationale": "English, <=300 chars, summarize the main changes and logic"
 }
-不要输出其他文本。`;
+Do not output any other text.`;
 
 export async function proposeRefresh(current: UniverseFile): Promise<RefreshProposal> {
   const userPayload = {
@@ -79,16 +88,16 @@ export async function proposeRefresh(current: UniverseFile): Promise<RefreshProp
   };
 }
 
-/** Validate a symbol by calling pyserver /fundamental. Returns true if pyserver
- *  knows it (200) regardless of whether all fields populated. */
-function isHongKongSymbol(symbol: string): boolean {
-  return symbol.trim().toLowerCase().startsWith("hk");
+/** A plausible US ticker: 1-5 letters, optional .CLASS / -CLASS suffix. Filters
+ *  out A-share 6-digit codes and hk-prefixed Hong Kong codes before validation. */
+function isUsTicker(symbol: string): boolean {
+  return /^[A-Za-z]{1,5}([.\-][A-Za-z]{1,2})?$/.test(symbol.trim());
 }
 
 async function validateSymbol(symbol: string): Promise<{ ok: boolean; reason?: string }> {
   try {
     const f = await fetchFundamental(symbol);
-    // Even if fields are null, pyserver returned 200 -> symbol parses + tushare didn't 502.
+    // Even if fields are null, pyserver returned 200 -> the symbol resolved.
     if (!f) return { ok: false, reason: "pyserver returned empty" };
     return { ok: true };
   } catch (e) {
@@ -107,10 +116,10 @@ export async function applyRefresh(
   const added: UniverseEntry[] = [];
   const rejected: { symbol: string; reason: string }[] = [];
   const ADD_CONCURRENCY = 6;
-  const hkAdds = proposal.adds.filter((a) => a.symbol && !known.has(a.symbol) && isHongKongSymbol(a.symbol));
-  rejected.push(...hkAdds.map((a) => ({ symbol: a.symbol, reason: "Hong Kong stocks are excluded from the universe" })));
+  const nonUsAdds = proposal.adds.filter((a) => a.symbol && !known.has(a.symbol) && !isUsTicker(a.symbol));
+  rejected.push(...nonUsAdds.map((a) => ({ symbol: a.symbol, reason: "Only US-listed tickers are allowed in the universe" })));
 
-  const candidates = proposal.adds.filter((a) => a.symbol && !known.has(a.symbol) && !isHongKongSymbol(a.symbol));
+  const candidates = proposal.adds.filter((a) => a.symbol && !known.has(a.symbol) && isUsTicker(a.symbol));
   for (let i = 0; i < candidates.length; i += ADD_CONCURRENCY) {
     const slice = candidates.slice(i, i + ADD_CONCURRENCY);
     const results = await Promise.all(

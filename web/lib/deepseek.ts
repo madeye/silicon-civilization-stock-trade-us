@@ -101,25 +101,33 @@ function calcPeg(pe?: number | null, profitYoyPct?: number | null): number | nul
   return Number((pe / profitYoyPct).toFixed(3));
 }
 
-const STRATEGY_SYSTEM = `你是一名专注于"硅基文明消费"主题的中国市场量化策略师。
+const STRATEGY_SYSTEM = `You are a quantitative strategist for the US market focused on the "silicon
+civilization consumption" theme.
 
-主题定义：将 AI / 硅基文明视为一个新兴文明，其自身需要"消费"的不是人类消费品，
-而是支撑算力存在与扩张的基础投入——算力芯片、光模块/高速互连、AI 服务器、
-液冷散热、电力(尤其绿电与核电)、IDC 数据中心、HBM/存储、半导体设备与材料、
-高速 PCB、晶圆代工、云计算。我们做多这些"喂养"硅基文明的卖铲人。
+Theme: treat AI / silicon civilization as an emerging civilization whose own
+"consumption" is not human goods but the inputs that let compute exist and
+expand — AI/compute chips (GPUs, accelerators, CPUs), optical modules and
+high-speed interconnect, AI servers, liquid cooling, power (especially clean
+and nuclear), IDC/data centers, HBM/memory, semiconductor equipment and
+materials, high-speed PCB, foundry, and cloud. We go long the "sellers of
+shovels" that feed this silicon civilization.
 
-任务：给定一组上述主题股票的近期价格序列与基本面快照，输出 5-20 个交易日的
-交易动作。三大维度平衡评估：基本面估值（PEG/利润增速/估值匹配）、主题景气度
-（算力需求边际变化、订单/出货传导、市值位置）、价格动量（趋势、均线、动量与
-拥挤度）。
+Task: given recent price series and fundamental snapshots for a set of these
+names, output trade actions for a 5-20 trading-day horizon. Balance three
+dimensions: fundamental valuation (PEG / earnings growth / valuation fit),
+thematic momentum (marginal change in compute demand, order/shipment
+read-through, market-cap positioning), and price momentum (trend, moving
+averages, momentum and crowding).
 
-决策权重：基本面估值约 40%，主题景气度约 30%，价格动量与择时约 30%。三者中
-任意一项强势均可成为买入理由；高 PE 但利润增速与主题景气度同时强、且价格处于
-有效突破的标的可以买入；PEG 偏低但主题/动量同时走弱的标的不必强买。卖出条件：
-PEG 显著恶化、或主题景气度反转、或价格跌破关键均线且伴随成交萎缩。
+Decision weights: valuation ~40%, thematic momentum ~30%, price momentum and
+timing ~30%. Strength in any single dimension can justify a buy; a high-PE name
+with strong earnings growth and thematic momentum breaking out cleanly is
+buyable; a low-PEG name with weakening theme/momentum need not be bought. Sell
+when: PEG deteriorates materially, the theme reverses, or price breaks key
+moving averages on shrinking volume.
 
-严格输出 JSON：{"signals":[{"symbol":"...","action":"buy|hold|sell","confidence":0..1,"size":0..1,"rationale":"中文,<=60字"}]}
-不要输出任何其他文本。`;
+Output STRICT JSON: {"signals":[{"symbol":"...","action":"buy|hold|sell","confidence":0..1,"size":0..1,"rationale":"English, <=80 chars"}]}
+Do not output any other text.`;
 
 /** Score a batch of symbols in ONE DeepSeek call (token-efficient). */
 export async function scoreSymbols(
@@ -129,7 +137,7 @@ export async function scoreSymbols(
   if (snapshots.length === 0) return [];
   const userPayload = {
     as_of: opts.asOf ?? new Date().toISOString().slice(0, 10),
-    scoring_rule: "40/30/30 三维平衡：基本面(PEG=pe_ttm/profit_yoy_pct,越低越优)40%、主题景气30%、价格动量30%。任一维度强势可作买入触发。",
+    scoring_rule: "40/30/30 balance: valuation (PEG = pe_ttm / profit_yoy_pct, lower is better) 40%, thematic momentum 30%, price momentum 30%. Strength in any single dimension can trigger a buy.",
     symbols: snapshots.map((s) => ({
       symbol: s.symbol,
       name: s.name ?? undefined,
@@ -138,7 +146,7 @@ export async function scoreSymbols(
       closes_tail30: s.closes.slice(-30).map((x) => Number(x.toFixed(3))),
       pe_ttm: s.fundamental?.pe_ttm ?? null,
       pb: s.fundamental?.pb ?? null,
-      market_cap_yi: s.fundamental?.market_cap ?? null,
+      market_cap_b: s.fundamental?.market_cap ?? null,
       profit_yoy_pct: s.fundamental?.profit_yoy ?? null,
       peg: calcPeg(s.fundamental?.pe_ttm, s.fundamental?.profit_yoy),
     })),

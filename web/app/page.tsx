@@ -15,36 +15,36 @@ export default function Home() {
     <div className="container">
       <header className="page-header">
         <div>
-          <div className="eyebrow">DeepSeek · Tushare · A股股票池</div>
-          <h1>硅基文明消费股交易系统</h1>
+          <div className="eyebrow">DeepSeek · Yahoo Finance · US Equities</div>
+          <h1>Silicon Civilization Stocks</h1>
           <p>
-            跟踪算力芯片、光模块、AI 服务器、液冷、电力、IDC、半导体材料与 AI-PCB 等供给侧标的。
+            Tracking the supply side of AI: compute chips, optical/interconnect, AI servers, liquid cooling, power, data centers, memory, and semiconductor equipment & materials.
           </p>
         </div>
         <div className="header-actions">
-          <Link href="/signals" className="button secondary">实时信号</Link>
-          <Link href="/backtest" className="button secondary">策略回测</Link>
+          <Link href="/signals" className="button secondary">Live Signals</Link>
+          <Link href="/backtest" className="button secondary">Backtest</Link>
         </div>
       </header>
 
       <div className="summary-grid">
         <div className="metric">
-          <span className="label">股票池</span>
+          <span className="label">Watchlist</span>
           <strong>{entries.length}</strong>
-          <span>仅 A 股</span>
+          <span>US equities</span>
         </div>
         <div className="metric">
-          <span className="label">全球供应链</span>
+          <span className="label">Global supply chain</span>
           <strong>{globalCount}</strong>
-          <span>{Math.round((globalCount / Math.max(entries.length, 1)) * 100)}% 覆盖</span>
+          <span>{Math.round((globalCount / Math.max(entries.length, 1)) * 100)}% coverage</span>
         </div>
         <div className="metric">
-          <span className="label">子主题</span>
+          <span className="label">Sub-themes</span>
           <strong>{themeCount}</strong>
-          <span>按产业环节分组</span>
+          <span>grouped by supply-chain layer</span>
         </div>
         <div className="metric">
-          <span className="label">更新时间</span>
+          <span className="label">Updated</span>
           <strong>{universe.updated_at}</strong>
           <span>{universe.updated_by}</span>
         </div>
@@ -52,8 +52,8 @@ export default function Home() {
 
       <div className="section-heading">
         <div>
-          <h2>股票池</h2>
-          <p>筛选、查看评级、目标价和上行空间。</p>
+          <h2>Watchlist</h2>
+          <p>Filter, and view ratings, price targets, and upside.</p>
         </div>
         <RefreshUniverseButton />
       </div>

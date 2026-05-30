@@ -97,7 +97,7 @@ test("throws when window has too few aligned trading days", async () => {
   await assert.rejects(() => runBacktest(makeSeries(), tinyCfg, { scorer }), /aligned/i);
 });
 
-// --- 涨停/跌停 (limit-up / limit-down) tradability ----------------------------
+// --- US-market tradability: no daily price limits ---------------------------
 
 // Trading-day dates generated the same way makeKlines does, so tests can refer
 // to the date at a given bar index.
@@ -117,32 +117,15 @@ function flatWithJump(start: string, n: number, jumpIndex: number, jumpClose: nu
   return makeKlines(start, closes);
 }
 
-// Main-board stock (±10%). Rebalances land on bar indices 0, 5, 10, … (every 5).
+// Rebalances land on bar indices 0, 5, 10, … (every 5).
 const N = 60;
 const dates = tradingDates("2025-01-01", N);
 
-test("skips buying a stock locked at 涨停 (limit-up)", async () => {
-  // +15% jump at bar 5 → above the 10% main-board limit, so unfillable.
+test("fills a buy on a large up-gap (US has no limit-up lock)", async () => {
+  // +15% jump at bar 5 — in the US there is no daily price-limit lock, so the
+  // buy fills at the close like any other bar.
   const series: SymbolSeries[] = [
-    { entry: { symbol: "600000", name: "X", theme: "T" }, klines: flatWithJump("2025-01-01", N, 5, 11.5) },
-  ];
-  // Only signal a BUY on the limit-up day.
-  const buyOnLimitUp: Scorer = async (snaps, { asOf }) =>
-    snaps.map((s) => ({
-      symbol: s.symbol,
-      action: asOf === dates[5] ? "buy" : "hold",
-      confidence: 1,
-      size: asOf === dates[5] ? 1 : 0,
-      rationale: "t",
-    }));
-  const r = await runBacktest(series, cfg, { scorer: buyOnLimitUp });
-  assert.equal(r.trades.filter((t) => t.side === "buy").length, 0, "must not buy into 涨停");
-});
-
-test("buys when the same-day move stays below the limit", async () => {
-  // +5% jump at bar 5 → within the 10% limit, so the buy fills as normal.
-  const series: SymbolSeries[] = [
-    { entry: { symbol: "600000", name: "X", theme: "T" }, klines: flatWithJump("2025-01-01", N, 5, 10.5) },
+    { entry: { symbol: "NVDA", name: "X", theme: "T" }, klines: flatWithJump("2025-01-01", N, 5, 11.5) },
   ];
   const buyOnBar5: Scorer = async (snaps, { asOf }) =>
     snaps.map((s) => ({
@@ -154,16 +137,17 @@ test("buys when the same-day move stays below the limit", async () => {
     }));
   const r = await runBacktest(series, cfg, { scorer: buyOnBar5 });
   const buys = r.trades.filter((t) => t.side === "buy");
-  assert.equal(buys.length, 1, "a sub-limit move is buyable");
+  assert.equal(buys.length, 1, "a large up-gap is still buyable in the US");
   assert.equal(buys[0].date, dates[5]);
+  assert.equal(buys[0].price, 11.5);
 });
 
-test("defers selling a stock locked at 跌停 (limit-down) until it can trade", async () => {
-  // Buy at bar 0 (price 10), then bar 5 gaps -15% (跌停) and holds flat after,
-  // so the deferred sell should execute at bar 6, not bar 5.
+test("sells same-day on a large down-gap (US has no limit-down lock)", async () => {
+  // Buy at bar 0 (price 10), then bar 5 gaps -15% and holds flat after. With no
+  // US price limit the sell executes at bar 5, not deferred.
   const closes = Array.from({ length: N }, (_, i) => (i < 5 ? 10 : 8.5));
   const series: SymbolSeries[] = [
-    { entry: { symbol: "600000", name: "X", theme: "T" }, klines: makeKlines("2025-01-01", closes) },
+    { entry: { symbol: "NVDA", name: "X", theme: "T" }, klines: makeKlines("2025-01-01", closes) },
   ];
   const buyThenSell: Scorer = async (snaps, { asOf }) =>
     snaps.map((s) => ({
@@ -175,7 +159,7 @@ test("defers selling a stock locked at 跌停 (limit-down) until it can trade", 
     }));
   const r = await runBacktest(series, cfg, { scorer: buyThenSell });
   const sells = r.trades.filter((t) => t.side === "sell");
-  assert.equal(sells.length, 1, "exactly one sell, executed once tradable");
-  assert.equal(sells[0].date, dates[6], "sell deferred past the 跌停 bar to the next tradable bar");
+  assert.equal(sells.length, 1, "exactly one sell, executed same day");
+  assert.equal(sells[0].date, dates[5], "sell fills on the signal day, no deferral");
   assert.equal(sells[0].price, 8.5);
 });

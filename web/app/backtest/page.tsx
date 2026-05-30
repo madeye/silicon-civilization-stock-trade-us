@@ -21,9 +21,9 @@ interface Progress {
 }
 
 const PHASE_LABEL: Record<Phase, string> = {
-  loading: "加载行情与基本面",
-  signals: "DeepSeek 信号生成",
-  simulating: "回测撮合",
+  loading: "Loading prices & fundamentals",
+  signals: "Generating DeepSeek signals",
+  simulating: "Simulating fills",
 };
 
 // Weights of each phase in the overall bar (must sum to 1).
@@ -118,36 +118,36 @@ export default function BacktestPage() {
 
   return (
     <div className="container">
-      <Link href="/" className="back-link">返回股票池</Link>
+      <Link href="/" className="back-link">Back to watchlist</Link>
       <header className="page-header compact">
         <div>
           <div className="eyebrow">Backtest</div>
-          <h1>策略回测</h1>
-          <p>滚动生成 DeepSeek 信号并按调仓周期撮合，行情与信号会被缓存。</p>
+          <h1>Strategy Backtest</h1>
+          <p>Rolls DeepSeek signals forward and fills them on each rebalance period; prices and signals are cached.</p>
         </div>
       </header>
 
       <div className="toolbar">
         <label className="field">
-          <span>起始</span>
+          <span>Start</span>
           <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
         </label>
         <label className="field">
-          <span>结束</span>
+          <span>End</span>
           <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </label>
         <label className="field">
-          <span>调仓周期</span>
+          <span>Rebalance (days)</span>
           <input type="number" min={1} max={60} value={rebalance}
             onChange={(e) => setRebalance(+e.target.value)} />
         </label>
         <label className="field">
-          <span>最大持仓数</span>
+          <span>Max positions</span>
           <input type="number" min={1} max={20} value={maxPositions}
             onChange={(e) => setMaxPositions(+e.target.value)} />
         </label>
         <button onClick={run} disabled={loading}>
-          {loading ? "运行中…" : "运行回测"}
+          {loading ? "Running…" : "Run backtest"}
         </button>
       </div>
 
@@ -155,7 +155,7 @@ export default function BacktestPage() {
         <div className="card" style={{ marginTop: 16 }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13 }}>
             <span>
-              {progress ? PHASE_LABEL[progress.phase] : "准备中…"}
+              {progress ? PHASE_LABEL[progress.phase] : "Preparing…"}
               {progress && `  ${progress.done} / ${progress.total}`}
             </span>
             <span style={{ color: "var(--muted)" }}>{(pct * 100).toFixed(0)}%</span>
@@ -185,21 +185,21 @@ export default function BacktestPage() {
 
       {error && (
         <div className="card" style={{ marginTop: 16, borderColor: "var(--danger)" }}>
-          <strong>失败：</strong> {error}
+          <strong>Failed:</strong> {error}
         </div>
       )}
 
       {result && (
         <>
           <div className="row" style={{ marginTop: 16 }}>
-            <Kpi label="总收益" value={`${result.stats.totalReturnPct.toFixed(2)}%`} pos={result.stats.totalReturnPct >= 0} />
-            <Kpi label="年化" value={`${result.stats.cagrPct.toFixed(2)}%`} pos={result.stats.cagrPct >= 0} />
-            <Kpi label="最大回撤" value={`${result.stats.maxDrawdownPct.toFixed(2)}%`} pos={false} />
-            <Kpi label="夏普" value={result.stats.sharpe.toFixed(2)} pos={result.stats.sharpe >= 0} />
-            <Kpi label="交易次数" value={result.stats.trades.toString()} />
+            <Kpi label="Total return" value={`${result.stats.totalReturnPct.toFixed(2)}%`} pos={result.stats.totalReturnPct >= 0} />
+            <Kpi label="CAGR" value={`${result.stats.cagrPct.toFixed(2)}%`} pos={result.stats.cagrPct >= 0} />
+            <Kpi label="Max drawdown" value={`${result.stats.maxDrawdownPct.toFixed(2)}%`} pos={false} />
+            <Kpi label="Sharpe" value={result.stats.sharpe.toFixed(2)} pos={result.stats.sharpe >= 0} />
+            <Kpi label="Trades" value={result.stats.trades.toString()} />
           </div>
 
-          <h2 className="subheading">权益曲线</h2>
+          <h2 className="subheading">Equity curve</h2>
           <div className="card chart-card">
             <ResponsiveContainer>
               <LineChart data={result.equityCurve.map((b) => ({ date: b.date, equity: b.equity }))}>
@@ -215,12 +215,12 @@ export default function BacktestPage() {
             </ResponsiveContainer>
           </div>
 
-          <h2 className="subheading">最近交易</h2>
+          <h2 className="subheading">Recent trades</h2>
           <div className="theme-panel">
             <div className="table-wrap compact-table">
             <table>
               <thead>
-                <tr><th>日期</th><th>代码</th><th>方向</th><th>数量</th><th>价格</th></tr>
+                <tr><th>Date</th><th>Ticker</th><th>Side</th><th>Shares</th><th>Price</th></tr>
               </thead>
               <tbody>
                 {result.trades.slice(-30).reverse().map((t, i) => (

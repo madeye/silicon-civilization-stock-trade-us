@@ -1,8 +1,9 @@
-// Typed client for the Python Tushare sidecar. Adds a thin in-process dedupe
-// on top of pyserver's own SQLite cache to coalesce burst calls within a render.
+// Typed client for the Python Yahoo Finance sidecar. Adds a thin in-process
+// dedupe on top of pyserver's own SQLite cache to coalesce burst calls within
+// a render.
 const BASE = process.env.PYSERVER_URL ?? "http://localhost:8001";
-// Default 180s — Tushare HK endpoints are rate-limited at 2/min, so a few
-// HK symbols may need to wait in pyserver's token bucket before being served.
+// Default 180s — a cold whole-watchlist refresh can queue behind pyserver's
+// upstream fetches before being served.
 const TIMEOUT_MS = Number(process.env.PYSERVER_TIMEOUT_MS ?? 180_000);
 
 export interface Kline {
@@ -51,8 +52,8 @@ async function get<T>(path: string, params: Record<string, string>): Promise<T> 
   }
 }
 
-export function fetchKlines(symbol: string, start = "20230101", end?: string) {
-  const params: Record<string, string> = { symbol, start, adjust: "qfq" };
+export function fetchKlines(symbol: string, start = "2023-01-01", end?: string) {
+  const params: Record<string, string> = { symbol, start, adjust: "adj" };
   if (end) params.end = end;
   return get<Kline[]>("/klines", params);
 }
