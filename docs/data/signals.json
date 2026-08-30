@@ -1,501 +1,501 @@
 {
-  "generated_at": "2026-05-30T06:01:44.977Z",
+  "generated_at": "2026-08-30T13:54:31.855Z",
   "fundamentals": [
     {
       "symbol": "NVDA",
-      "pe_ttm": 32.383434,
-      "pb": 32.623608,
-      "market_cap": 5114.022068224
+      "pe_ttm": 27.468435,
+      "pb": 26.95787,
+      "market_cap": 5253.17963776
     },
     {
       "symbol": "AMD",
-      "pe_ttm": 172.60869,
-      "pb": 13.050294,
-      "market_cap": 841.552887808
+      "pe_ttm": 119.074165,
+      "pb": 11.302954,
+      "market_cap": 760.047665152
     },
     {
       "symbol": "AVGO",
-      "pe_ttm": 86.920235,
-      "pb": 26.490957,
-      "market_cap": 2115.307700224
+      "pe_ttm": 61.773872,
+      "pb": 20.01031,
+      "market_cap": 1754.548011008
     },
     {
       "symbol": "MRVL",
-      "pe_ttm": 70.44673,
-      "pb": 12.139516,
-      "market_cap": 179.334004736
+      "pe_ttm": 79.93358,
+      "pb": 10.41242,
+      "market_cap": 194.67739136
     },
     {
       "symbol": "ARM",
-      "pe_ttm": 415.63528,
-      "pb": 45.369205,
-      "market_cap": 377.341575168
+      "pe_ttm": 243.92857,
+      "pb": 29.581734,
+      "market_cap": 255.30507264
     },
     {
       "symbol": "QCOM",
-      "pe_ttm": 27.020452,
-      "pb": 9.745322,
-      "market_cap": 264.575090688
+      "pe_ttm": 18.764572,
+      "pb": 6.2746973,
+      "market_cap": 175.364849664
     },
     {
       "symbol": "INTC",
       "pe_ttm": null,
-      "pb": 5.171123,
-      "market_cap": 576.381648896
+      "pb": 5.154099,
+      "market_cap": 472.947818496
     },
     {
       "symbol": "TSM",
-      "pe_ttm": 35.8569,
-      "pb": 64.00909,
-      "market_cap": 2170.280083456
+      "pe_ttm": 31.847445,
+      "pb": 87.07368,
+      "market_cap": 2165.456502784
     },
     {
       "symbol": "GFS",
-      "pe_ttm": 50.936306,
-      "pb": 3.7507625,
-      "market_cap": 43.856863232
+      "pe_ttm": 36.09677,
+      "pb": 2.0783803,
+      "market_cap": 24.562098176
     },
     {
       "symbol": "UMC",
-      "pe_ttm": 35.20635,
-      "pb": 4.3155994,
-      "market_cap": 55.65597696
+      "pe_ttm": 18.495327,
+      "pb": 3.5537114,
+      "market_cap": 49.631514624
     },
     {
       "symbol": "COHR",
-      "pe_ttm": 172.12859,
-      "pb": 6.6202083,
-      "market_cap": 70.717751296
+      "pe_ttm": 67.602905,
+      "pb": 5.0125675,
+      "market_cap": 54.676365312
     },
     {
       "symbol": "LITE",
-      "pe_ttm": 151.58865,
-      "pb": 72.10593,
-      "market_cap": 66.515890176
+      "pe_ttm": null,
+      "pb": 17.07559,
+      "market_cap": 80.281501696
     },
     {
       "symbol": "CIEN",
-      "pe_ttm": 369.5732,
-      "pb": 29.392128,
-      "market_cap": 82.043609088
+      "pe_ttm": 126.568565,
+      "pb": 18.527367,
+      "market_cap": 53.56929024
     },
     {
       "symbol": "CRDO",
-      "pe_ttm": 129.68681,
-      "pb": 23.518333,
-      "market_cap": 43.535716352
+      "pe_ttm": 92.72909,
+      "pb": 20.91383,
+      "market_cap": 43.741794304
     },
     {
       "symbol": "ANET",
-      "pe_ttm": 54.989655,
-      "pb": 14.888432,
-      "market_cap": 200.799748096
+      "pe_ttm": 63.641697,
+      "pb": 16.652178,
+      "market_cap": 246.418096128
     },
     {
       "symbol": "SMCI",
-      "pe_ttm": 24.257895,
-      "pb": 3.6588075,
-      "market_cap": 27.719378944
+      "pe_ttm": 11.374234,
+      "pb": 2.2186325,
+      "market_cap": 23.98605312
     },
     {
       "symbol": "DELL",
-      "pe_ttm": 48.547867,
-      "pb": -111.116684,
-      "market_cap": 273.409769472
+      "pe_ttm": 36.353783,
+      "pb": -210.92924,
+      "market_cap": 294.79600128
     },
     {
       "symbol": "HPE",
-      "pe_ttm": null,
-      "pb": 2.3087652,
-      "market_cap": 57.10780416
+      "pe_ttm": 48.887848,
+      "pb": 2.7368805,
+      "market_cap": 69.269086208
     },
     {
       "symbol": "VRT",
-      "pe_ttm": 79.32412,
-      "pb": 30.642529,
-      "market_cap": 121.266987008
+      "pe_ttm": 60.91943,
+      "pb": 20.801035,
+      "market_cap": 98.97275392
     },
     {
       "symbol": "GEV",
-      "pe_ttm": 28.330017,
-      "pb": 18.69019,
-      "market_cap": 260.206952448
+      "pe_ttm": 26.174799,
+      "pb": 20.312506,
+      "market_cap": 242.877579264
     },
     {
       "symbol": "VST",
-      "pe_ttm": 26.794313,
-      "pb": 20.66684,
-      "market_cap": 54.026743808
+      "pe_ttm": 23.079124,
+      "pb": 15.322454,
+      "market_cap": 46.012227584
     },
     {
       "symbol": "CEG",
-      "pe_ttm": 25,
-      "pb": 3.1140764,
-      "market_cap": 103.93243648
+      "pe_ttm": 27.026367,
+      "pb": 3.0750341,
+      "market_cap": 98.054569984
     },
     {
       "symbol": "NRG",
-      "pe_ttm": 147.34065,
-      "pb": 24.756279,
-      "market_cap": 28.28906496
+      "pe_ttm": 28.937502,
+      "pb": 5.5576677,
+      "market_cap": 23.358588928
     },
     {
       "symbol": "TLN",
       "pe_ttm": null,
-      "pb": 16.364176,
-      "market_cap": 17.674827776
+      "pb": 8.776863,
+      "market_cap": 14.187652096
     },
     {
       "symbol": "EQIX",
-      "pe_ttm": 74.066574,
-      "pb": 7.367013,
-      "market_cap": 105.334644736
+      "pe_ttm": 67.12147,
+      "pb": 7.165419,
+      "market_cap": 103.053697024
     },
     {
       "symbol": "DLR",
-      "pe_ttm": 50.531914,
-      "pb": 2.928619,
-      "market_cap": 67.962822656
+      "pe_ttm": 90.03398,
+      "pb": 2.5699756,
+      "market_cap": 70.0452864
     },
     {
       "symbol": "MU",
-      "pe_ttm": 45.86679,
-      "pb": 15.115899,
-      "market_cap": 1095.029751808
+      "pe_ttm": 21.095882,
+      "pb": 10.456314,
+      "market_cap": 1053.565648896
     },
     {
       "symbol": "AMAT",
-      "pe_ttm": 42.378532,
-      "pb": 14.945208,
-      "market_cap": 357.329371136
+      "pe_ttm": 39.833477,
+      "pb": 14.297173,
+      "market_cap": 366.38015488
     },
     {
       "symbol": "LRCX",
-      "pe_ttm": 60.26136,
-      "pb": 37.592155,
-      "market_cap": 397.906673664
+      "pe_ttm": 55.293037,
+      "pb": 30.289957,
+      "market_cap": 377.773785088
     },
     {
       "symbol": "KLAC",
-      "pe_ttm": 54.347,
-      "pb": 43.08187,
-      "market_cap": 251.028209664
+      "pe_ttm": 48.093147,
+      "pb": 36.134212,
+      "market_cap": 229.351227392
     },
     {
       "symbol": "ASML",
-      "pe_ttm": 53.758667,
-      "pb": 1427.0149,
-      "market_cap": 621.586219008
+      "pe_ttm": 57.148247,
+      "pb": 1423.2374,
+      "market_cap": 651.495079936
     },
     {
       "symbol": "ENTG",
-      "pe_ttm": 80.225426,
-      "pb": 5.332744,
-      "market_cap": 21.1377152
+      "pe_ttm": 67.46,
+      "pb": 4.9570136,
+      "market_cap": 20.548315136
     },
     {
       "symbol": "MSFT",
-      "pe_ttm": 26.81596,
-      "pb": 8.0721445,
-      "market_cap": 3344.578379776
+      "pe_ttm": 28.577076,
+      "pb": 8.621339,
+      "market_cap": 3813.240733696
     },
     {
       "symbol": "GOOGL",
-      "pe_ttm": 28.989328,
-      "pb": 9.625449,
-      "market_cap": 4607.987679232
+      "pe_ttm": 17.090237,
+      "pb": 6.8097687,
+      "market_cap": 4238.773059584
     },
     {
       "symbol": "AMZN",
-      "pe_ttm": 31.653803,
-      "pb": 6.586037,
-      "market_cap": 2911.30441728
+      "pe_ttm": 20.621517,
+      "pb": 5.2081866,
+      "market_cap": 2873.797378048
     },
     {
       "symbol": "ORCL",
-      "pe_ttm": 40.462364,
-      "pb": 19.353676,
-      "market_cap": 649.353691136
+      "pe_ttm": 26.053541,
+      "pb": 11.568252,
+      "market_cap": 434.51908096
     },
     {
       "symbol": "NBIS",
-      "pe_ttm": 89.22394,
-      "pb": 8.173522,
-      "market_cap": 58.673332224
+      "pe_ttm": null,
+      "pb": 5.545305,
+      "market_cap": 53.110423552
     },
     {
       "symbol": "CRWV",
       "pe_ttm": null,
-      "pb": 12.24483,
-      "market_cap": 59.756322816
+      "pb": 9.237772,
+      "market_cap": 46.455926784
     }
   ],
   "signals": [
     {
       "symbol": "NVDA",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Valuation decent, thematic strong, but price weak below MAs; wait for recovery."
+      "action": "buy",
+      "confidence": 0.65,
+      "size": 0.08,
+      "rationale": "Low PEG, leader, 20d uptrend, minor pullback"
     },
     {
       "symbol": "AMD",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Solid momentum but high PE; hold."
+      "action": "sell",
+      "confidence": 0.7,
+      "size": 0.05,
+      "rationale": "High PE 119, 10d down 9.5%, weak momentum"
     },
     {
       "symbol": "AVGO",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Steady momentum, moderate valuation; hold."
+      "action": "sell",
+      "confidence": 0.65,
+      "size": 0.05,
+      "rationale": "PE 62, price below 20MA, downtrend"
     },
     {
       "symbol": "MRVL",
       "action": "hold",
       "confidence": 0.5,
       "size": 0,
-      "rationale": "Good momentum and thematic, but valuation high; hold."
+      "rationale": "High PE but 20d +15%, pullback normal"
     },
     {
       "symbol": "ARM",
-      "action": "buy",
+      "action": "sell",
       "confidence": 0.8,
-      "size": 0.2,
-      "rationale": "Explosive price breakout; strong thematic; high PE justified by momentum."
+      "size": 0.06,
+      "rationale": "PE 244, 10d down 14%, broken trend"
     },
     {
       "symbol": "QCOM",
       "action": "buy",
-      "confidence": 0.77,
-      "size": 0.2,
-      "rationale": "Low PE, strong price momentum; edge AI theme improving."
+      "confidence": 0.7,
+      "size": 0.07,
+      "rationale": "PE 18.8, stable uptrend, value"
     },
     {
       "symbol": "INTC",
       "action": "sell",
-      "confidence": 0.7,
-      "size": 0.1,
-      "rationale": "No earnings, weak thematic, price below short MAs; exit."
+      "confidence": 0.75,
+      "size": 0.05,
+      "rationale": "Loss-making, 10d down 13%, weak"
     },
     {
       "symbol": "TSM",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Foundry leader, decent valuation, but momentum slowing."
+      "action": "buy",
+      "confidence": 0.55,
+      "size": 0.05,
+      "rationale": "PE 31, foundry leader, 20d positive"
     },
     {
       "symbol": "GFS",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Mixed momentum; mature node foundry, hold."
+      "action": "sell",
+      "confidence": 0.7,
+      "size": 0.05,
+      "rationale": "Downtrend 10d -18%, breaking support"
     },
     {
       "symbol": "UMC",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Surge in price but low thematic; hold."
+      "action": "buy",
+      "confidence": 0.6,
+      "size": 0.06,
+      "rationale": "PE 18.5, positive 10d/20d momentum"
     },
     {
       "symbol": "COHR",
       "action": "hold",
-      "confidence": 0.5,
+      "confidence": 0.45,
       "size": 0,
-      "rationale": "Strong optical theme but price pullback; hold."
+      "rationale": "High PE, sharp pullback but optical theme strong"
     },
     {
       "symbol": "LITE",
-      "action": "sell",
-      "confidence": 0.7,
-      "size": 0.1,
-      "rationale": "Price severely negative momentum, break below MAs; sell."
+      "action": "buy",
+      "confidence": 0.6,
+      "size": 0.06,
+      "rationale": "Strong 20d +25%, optical momentum intact"
     },
     {
       "symbol": "CIEN",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Moderate momentum, low valuation; hold."
+      "action": "sell",
+      "confidence": 0.7,
+      "size": 0.06,
+      "rationale": "PE 127, 10d -12%, weak price"
     },
     {
       "symbol": "CRDO",
-      "action": "buy",
-      "confidence": 0.7,
-      "size": 0.2,
-      "rationale": "Strong momentum, good optical theme; PE high but justified."
+      "action": "hold",
+      "confidence": 0.5,
+      "size": 0,
+      "rationale": "High PE but 20d +12%, volatile"
     },
     {
       "symbol": "ANET",
       "action": "hold",
-      "confidence": 0.5,
+      "confidence": 0.55,
       "size": 0,
-      "rationale": "Steady uptrend, networking demand; hold."
+      "rationale": "Networking leader, 20d +8%, minor dip"
     },
     {
       "symbol": "SMCI",
       "action": "buy",
-      "confidence": 0.89,
-      "size": 0.2,
-      "rationale": "Low PE, extreme breakout; AI server demand surging."
+      "confidence": 0.8,
+      "size": 0.1,
+      "rationale": "PE 11, server demand, 20d +31%"
     },
     {
       "symbol": "DELL",
       "action": "buy",
-      "confidence": 0.71,
-      "size": 0.2,
-      "rationale": "Explosive breakout, cheap valuation; AI server winner."
+      "confidence": 0.55,
+      "size": 0.05,
+      "rationale": "PE 36, AI server momentum, pullback buy"
     },
     {
       "symbol": "HPE",
       "action": "hold",
-      "confidence": 0.5,
+      "confidence": 0.45,
       "size": 0,
-      "rationale": "Price momentum strong but no earnings; hold."
+      "rationale": "High PE, 10d -11%, but 20d positive"
     },
     {
       "symbol": "VRT",
       "action": "hold",
-      "confidence": 0.5,
+      "confidence": 0.45,
       "size": 0,
-      "rationale": "Thermal infra theme intact, but price weakening; hold."
+      "rationale": "High PE, thermal demand, pullback"
     },
     {
       "symbol": "GEV",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Cheap valuation, power theme, but price decline; hold."
+      "action": "sell",
+      "confidence": 0.6,
+      "size": 0.05,
+      "rationale": "Broke 20MA, 10d -14%, weak power"
     },
     {
       "symbol": "VST",
-      "action": "buy",
-      "confidence": 0.73,
-      "size": 0.2,
-      "rationale": "Very low PE, recovering power play; momentum improving."
+      "action": "sell",
+      "confidence": 0.65,
+      "size": 0.05,
+      "rationale": "Downtrend, 20d -7.5%, momentum negative"
     },
     {
       "symbol": "CEG",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Solid valuation but price stagnant; hold."
+      "action": "buy",
+      "confidence": 0.55,
+      "size": 0.05,
+      "rationale": "Nuclear power, 20d +5%, stable"
     },
     {
       "symbol": "NRG",
       "action": "sell",
       "confidence": 0.7,
-      "size": 0.1,
-      "rationale": "Weak momentum and expensive vs peers; sell."
+      "size": 0.06,
+      "rationale": "20d -17%, broken trend, avoid"
     },
     {
       "symbol": "TLN",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Momentum recovering, no earnings; hold."
+      "action": "sell",
+      "confidence": 0.75,
+      "size": 0.06,
+      "rationale": "20d -11%, 10d -18%, sharp drop"
     },
     {
       "symbol": "EQIX",
       "action": "hold",
       "confidence": 0.5,
       "size": 0,
-      "rationale": "Data center steady, but low momentum; hold."
+      "rationale": "Data center REIT, high PE, flat"
     },
     {
       "symbol": "DLR",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Price below MAs, data center theme; hold."
+      "action": "sell",
+      "confidence": 0.55,
+      "size": 0.05,
+      "rationale": "PE 90, 10d -7%, momentum weak"
     },
     {
       "symbol": "MU",
       "action": "buy",
-      "confidence": 0.77,
-      "size": 0.2,
-      "rationale": "HBM memory critical, strong rev growth, breakout."
+      "confidence": 0.65,
+      "size": 0.07,
+      "rationale": "PE 21, HBM, 20d +13%, dip"
     },
     {
       "symbol": "AMAT",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Semi equipment leader, momentum ok; hold."
+      "action": "sell",
+      "confidence": 0.6,
+      "size": 0.05,
+      "rationale": "Downtrend, 10d -9%, semi cap weak"
     },
     {
       "symbol": "LRCX",
       "action": "hold",
-      "confidence": 0.5,
+      "confidence": 0.45,
       "size": 0,
-      "rationale": "Good momentum, equipment demand; hold."
+      "rationale": "High PE, 20d +3%, but recent downturn"
     },
     {
       "symbol": "KLAC",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Stable momentum, decent valuation; hold."
+      "action": "sell",
+      "confidence": 0.65,
+      "size": 0.05,
+      "rationale": "PE 48, 10d -14%, trend down"
     },
     {
       "symbol": "ASML",
       "action": "hold",
-      "confidence": 0.5,
+      "confidence": 0.45,
       "size": 0,
-      "rationale": "Monopoly EUV, but price momentum lacking; hold."
+      "rationale": "High PE, 20d +4%, but pullback"
     },
     {
       "symbol": "ENTG",
       "action": "hold",
-      "confidence": 0.5,
+      "confidence": 0.4,
       "size": 0,
-      "rationale": "Materials supplier, mixed signals; hold."
+      "rationale": "Sharp 10d -17%, but 20d +13%, risky"
     },
     {
       "symbol": "MSFT",
       "action": "buy",
-      "confidence": 0.74,
-      "size": 0.2,
-      "rationale": "Low PE, cloud AI demand, price breaking out."
+      "confidence": 0.7,
+      "size": 0.08,
+      "rationale": "PE 28, AI infra, 10d +4%, 20d +11%"
     },
     {
       "symbol": "GOOGL",
       "action": "hold",
       "confidence": 0.5,
       "size": 0,
-      "rationale": "Cheap but price weakening; hold."
+      "rationale": "Low PE 17, flat momentum, wait"
     },
     {
       "symbol": "AMZN",
       "action": "hold",
       "confidence": 0.5,
       "size": 0,
-      "rationale": "Valuation ok, momentum muted; hold."
+      "rationale": "Low PE 20, flat, cloud AI optionality"
     },
     {
       "symbol": "ORCL",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Cloud infra push, strong price but PE higher; hold."
+      "action": "buy",
+      "confidence": 0.7,
+      "size": 0.08,
+      "rationale": "PE 26, 20d +16%, cloud backlog"
     },
     {
       "symbol": "NBIS",
-      "action": "hold",
-      "confidence": 0.5,
-      "size": 0,
-      "rationale": "Momentum up but unclear earnings; hold."
+      "action": "sell",
+      "confidence": 0.6,
+      "size": 0.05,
+      "rationale": "10d -25%, broken, high risk"
     },
     {
       "symbol": "CRWV",
       "action": "sell",
-      "confidence": 0.7,
-      "size": 0.1,
-      "rationale": "No earnings, price under MAs; sell."
+      "confidence": 0.6,
+      "size": 0.05,
+      "rationale": "10d -20%, broken, unprofitable"
     }
   ]
 }
